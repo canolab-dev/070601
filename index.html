@@ -303,7 +303,7 @@ function showFurnitureList() {
     "ベッド": "images/Home_0005.jpg",
     "デスク": "images/Home_0006.jpg",
     "照明": "images/Home_0007.jpg",
-    "パーテーション": "images/Home_0008.jpg"
+    "その他": "images/Home_0008.jpg"
   };
 
   const grouped = furnitures.reduce((acc, item) => {
@@ -318,7 +318,7 @@ function showFurnitureList() {
     <p class="lead">FurnitureMasterの${furnitures.length}件を読み込んでいます。</p>
     ${Object.entries(grouped).map(([category, items]) => `
       <div class="card">
-        ${categoryImages[category] ?`<img src="${categoryImages[category]}" alt="${escapeHtml(category)}" style="width:96px;height:96px;object-fit:contain;display:block;margin:0 auto 16px;">` : ""}
+        ${categoryImages[category] ? `<img src="${categoryImages[category]}" alt="${escapeHtml(category)}" style="width:96px;height:96px;object-fit:contain;display:block;margin:0 auto 16px;">` : ""}
         <h2>${escapeHtml(category)}（${items.length}件）</h2>
         <div class="grid">
           ${items.map(item => `<button class="ghost small" onclick="showDetail('${item.id}')">${escapeHtml(item.name)}</button>`).join("")}
