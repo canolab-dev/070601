@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Furna</title>
+  <style>
+    :root {
+      --green: #2f6f4e;
+      --green-dark: #244f3a;
+      --orange: #f29f3d;
+      --cream: #f7f6f2;
+      --text: #26352c;
+      --muted: #6b716d;
+      --border: #e1ded5;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", system-ui, sans-serif;
+      background: radial-gradient(circle at top left, #eef6ed, var(--cream) 42%);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .app {
+      max-width: 820px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.94);
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: 0 16px 42px rgba(38, 53, 44, 0.12);
+      border: 1px solid rgba(225,222,213,0.85);
+    }
+    h1 { margin: 0 0 12px; color: var(--green); letter-spacing: .02em; }
+    h2 { margin: 10px 0 18px; line-height: 1.45; }
+    p { line-height: 1.8; }
+    .lead { color: var(--muted); margin-bottom: 24px; }
+    button {
+      width: 100%;
+      margin: 7px 0;
+      padding: 15px 16px;
+      border: none;
+      border-radius: 14px;
+      background: var(--green);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .08s ease, opacity .15s ease;
+    }
+    button:hover { opacity: .93; }
+    button:active { transform: translateY(1px); }
+    button.secondary { background: var(--orange); color: #2f2415; }
+    button.ghost { background: #eef4ee; color: var(--green-dark); }
+    .meta-row { display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0; }
+    .pill {
+      display:inline-flex; align-items:center; gap:6px;
+      padding: 6px 10px; border-radius: 999px;
+      background: #eef4ee; color: var(--green-dark); font-size: 13px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 14px 0;
+      background: #fffdfa;
+    }
+    .result-card { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .result-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .rank { color: var(--green); font-weight: 800; font-size: 18px; }
+    .percent { font-weight: 900; color: var(--green); font-size: 20px; white-space:nowrap; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .progress-wrap { width:100%; height:10px; background:#e8e4da; border-radius:999px; overflow:hidden; margin: 14px 0 22px; }
+    .progress-bar { height:100%; background: var(--green); width:0%; transition: width .25s ease; }
+    .tag { display:inline-block; background:#f2efe7; color:#4b514c; border-radius:8px; padding:5px 8px; margin: 4px 4px 0 0; font-size:12px; }
+    .grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+    .small { font-size: 13px; }
+    .top-actions { display:flex; gap:10px; }
+    .top-actions button { width:auto; flex:1; }
+    input { width:100%; padding:14px; border:1px solid var(--border); border-radius:12px; font-size:16px; margin:8px 0 14px; }
+    @media (max-width: 620px) {
+      body { padding: 12px; }
+      .app { padding: 20px; border-radius: 20px; }
+      .grid { grid-template-columns: 1fr; }
+      .result-head { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app"></div>
+
+  <script>
+    const furnitures = [{"id": "F001", "category": "椅子", "name": "ラウンジチェア", "type": "一般名称", "description": "一人掛けのくつろぎ用椅子。ソファより軽く、ダイニングチェアより休息向き。", "tags": ["chair", "one_seat", "lounge", "relax", "low_seat", "living", "arm_optional"], "keywords": ["ラウンジチェア", "椅子", "一般名称", "chair", "one_seat", "lounge", "relax", "low_seat", "living", "arm_optional"]}, {"id": "F002", "category": "椅子", "name": "イージーチェア", "type": "一般名称", "description": "休息用の安楽椅子。背もたれ・座面に余裕がある。", "tags": ["chair", "one_seat", "relax", "soft", "high_back", "living"], "keywords": ["イージーチェア", "椅子", "一般名称", "chair", "one_seat", "relax", "soft", "high_back", "living"]}, {"id": "F003", "category": "椅子", "name": "アームチェア", "type": "一般名称", "description": "肘掛けのある一人掛け椅子。用途は幅広い。", "tags": ["chair", "one_seat", "arms", "general"], "keywords": ["アームチェア", "椅子", "一般名称", "chair", "one_seat", "arms", "general"]}, {"id": "F004", "category": "椅子", "name": "ダイニングチェア", "type": "一般名称", "description": "食卓で使う椅子。座面高めで食事・作業向き。", "tags": ["chair", "dining", "no_recline", "upright", "standard_height"], "keywords": ["ダイニングチェア", "椅子", "一般名称", "chair", "dining", "no_recline", "upright", "standard_height"]}, {"id": "F005", "category": "椅子", "name": "サイドチェア", "type": "一般名称", "description": "肘掛けのない簡素な椅子。ダイニングにも使われる。", "tags": ["chair", "no_arms", "dining", "general"], "keywords": ["サイドチェア", "椅子", "一般名称", "chair", "no_arms", "dining", "general"]}, {"id": "F006", "category": "椅子", "name": "ウィンザーチェア", "type": "一般名称", "description": "木製で細い棒状の背もたれを持つ伝統的な椅子。", "tags": ["chair", "wood", "spindle_back", "classic", "dining"], "keywords": ["ウィンザーチェア", "椅子", "一般名称", "chair", "wood", "spindle_back", "classic", "dining"]}, {"id": "F007", "category": "椅子", "name": "ロッキングチェア", "type": "一般名称", "description": "脚部が弧状で前後に揺れる椅子。", "tags": ["chair", "rocking", "relax", "classic", "living"], "keywords": ["ロッキングチェア", "椅子", "一般名称", "chair", "rocking", "relax", "classic", "living"]}, {"id": "F008", "category": "椅子", "name": "リクライニングチェア", "type": "一般名称", "description": "背もたれやフットレストの角度を変えられる椅子。", "tags": ["chair", "reclining", "relax", "mechanism", "footrest"], "keywords": ["リクライニングチェア", "椅子", "一般名称", "chair", "reclining", "relax", "mechanism", "footrest"]}, {"id": "F009", "category": "椅子", "name": "オットマン", "type": "一般名称", "description": "足置き用の低いスツール。単体で補助椅子にもなる。", "tags": ["footstool", "low", "ottoman", "living"], "keywords": ["オットマン", "椅子", "一般名称", "footstool", "low", "ottoman", "living"]}, {"id": "F010", "category": "椅子", "name": "スツール", "type": "一般名称", "description": "背もたれのない椅子。補助椅子として使いやすい。", "tags": ["chair", "no_back", "compact", "stool"], "keywords": ["スツール", "椅子", "一般名称", "chair", "no_back", "compact", "stool"]}, {"id": "F011", "category": "椅子", "name": "カウンターチェア", "type": "一般名称", "description": "カウンターや高いテーブル用の座面が高い椅子。", "tags": ["chair", "tall", "bar", "counter", "footrest"], "keywords": ["カウンターチェア", "椅子", "一般名称", "chair", "tall", "bar", "counter", "footrest"]}, {"id": "F012", "category": "椅子", "name": "ベンチ", "type": "一般名称", "description": "複数人で腰掛けられる横長の椅子。", "tags": ["seat", "multiple", "long", "bench"], "keywords": ["ベンチ", "椅子", "一般名称", "seat", "multiple", "long", "bench"]}, {"id": "F013", "category": "椅子", "name": "デイベッド", "type": "一般名称", "description": "ソファとベッドの中間のように横になれる家具。", "tags": ["sofa", "bed", "lounge", "lie_down", "long"], "keywords": ["デイベッド", "椅子", "一般名称", "sofa", "bed", "lounge", "lie_down", "long"]}, {"id": "F014", "category": "椅子", "name": "シェーズロング", "type": "一般名称", "description": "脚を伸ばして座れる長椅子。片側に背や肘があることが多い。", "tags": ["chair", "lounge", "lie_down", "long", "chaise"], "keywords": ["シェーズロング", "椅子", "一般名称", "chair", "lounge", "lie_down", "long", "chaise"]}, {"id": "F015", "category": "椅子", "name": "座椅子", "type": "一般名称", "description": "床座用の脚のない低い椅子。和室向き。", "tags": ["chair", "floor", "no_legs", "japanese", "low"], "keywords": ["座椅子", "椅子", "一般名称", "chair", "floor", "no_legs", "japanese", "low"]}, {"id": "F016", "category": "椅子", "name": "籐椅子／ラタンチェア", "type": "一般名称", "description": "ラタン素材を使った軽やかな椅子。", "tags": ["chair", "rattan", "natural", "light"], "keywords": ["籐椅子／ラタンチェア", "椅子", "一般名称", "chair", "rattan", "natural", "light"]}, {"id": "F017", "category": "椅子", "name": "パーソナルチェア", "type": "一般名称", "description": "個人でくつろぐための一人掛け椅子の総称。", "tags": ["chair", "one_seat", "relax", "living"], "keywords": ["パーソナルチェア", "椅子", "一般名称", "chair", "one_seat", "relax", "living"]}, {"id": "F018", "category": "椅子", "name": "アクセントチェア", "type": "一般名称", "description": "空間のポイントになる装飾性の高い一人掛け椅子。", "tags": ["chair", "one_seat", "decorative", "living"], "keywords": ["アクセントチェア", "椅子", "一般名称", "chair", "one_seat", "decorative", "living"]}, {"id": "F019", "category": "椅子", "name": "クラブチェア", "type": "一般名称", "description": "革張りなどで重厚感のある低めの安楽椅子。", "tags": ["chair", "leather", "low_seat", "arms", "classic", "relax"], "keywords": ["クラブチェア", "椅子", "一般名称", "chair", "leather", "low_seat", "arms", "classic", "relax"]}, {"id": "F020", "category": "椅子", "name": "バタフライチェア", "type": "一般名称", "description": "布や革を吊るような座面を持つ軽快な椅子。", "tags": ["chair", "folding", "canvas", "leather", "lounge"], "keywords": ["バタフライチェア", "椅子", "一般名称", "chair", "folding", "canvas", "leather", "lounge"]}, {"id": "F021", "category": "名作椅子", "name": "CH24／Yチェア", "type": "名作家具", "description": "曲線的な木製フレームとY字の背、ペーパーコード座面の椅子。", "tags": ["chair", "wood", "paper_cord", "nordic", "dining", "iconic", "curved", "y_back"], "keywords": ["CH24／Yチェア", "名作椅子", "名作家具", "chair", "wood", "paper_cord", "nordic", "dining", "iconic", "curved", "y_back"]}, {"id": "F022", "category": "名作椅子", "name": "J39 モーエンセンチェア", "type": "名作家具", "description": "素朴な木製フレームとペーパーコード座面のシェーカースタイル系椅子。", "tags": ["chair", "wood", "paper_cord", "nordic", "dining", "simple"], "keywords": ["J39 モーエンセンチェア", "名作椅子", "名作家具", "chair", "wood", "paper_cord", "nordic", "dining", "simple"]}, {"id": "F023", "category": "名作椅子", "name": "セブンチェア", "type": "名作家具", "description": "成形合板の一体的な背座と細い脚を持つ軽快な椅子。", "tags": ["chair", "plywood", "stackable", "nordic", "dining", "iconic"], "keywords": ["セブンチェア", "名作椅子", "名作家具", "chair", "plywood", "stackable", "nordic", "dining", "iconic"]}, {"id": "F024", "category": "名作椅子", "name": "アントチェア", "type": "名作家具", "description": "蟻のような細いくびれを持つ成形合板椅子。", "tags": ["chair", "plywood", "stackable", "nordic", "three_legs", "iconic"], "keywords": ["アントチェア", "名作椅子", "名作家具", "chair", "plywood", "stackable", "nordic", "three_legs", "iconic"]}, {"id": "F025", "category": "名作椅子", "name": "シェルチェア CH07", "type": "名作家具", "description": "大きな曲面の座と背、三本脚が特徴のラウンジチェア。", "tags": ["chair", "wood", "plywood", "lounge", "three_legs", "iconic", "curved"], "keywords": ["シェルチェア CH07", "名作椅子", "名作家具", "chair", "wood", "plywood", "lounge", "three_legs", "iconic", "curved"]}, {"id": "F026", "category": "名作椅子", "name": "PK22", "type": "名作家具", "description": "低く水平なライン、籐や革座面、スチール脚のラウンジチェア。", "tags": ["chair", "lounge", "low_seat", "steel", "rattan", "leather", "modern"], "keywords": ["PK22", "名作椅子", "名作家具", "chair", "lounge", "low_seat", "steel", "rattan", "leather", "modern"]}, {"id": "F027", "category": "名作椅子", "name": "LC2 アームチェア", "type": "名作家具", "description": "外側のスチールフレームと箱型クッションのモダンな一人掛け。", "tags": ["chair", "sofa", "one_seat", "steel", "leather", "modern", "boxy"], "keywords": ["LC2 アームチェア", "名作椅子", "名作家具", "chair", "sofa", "one_seat", "steel", "leather", "modern", "boxy"]}, {"id": "F028", "category": "名作椅子", "name": "LC4 シェーズロング", "type": "名作家具", "description": "寝椅子型で身体を預ける曲線的なリクライニング家具。", "tags": ["chair", "chaise", "lounge", "lie_down", "steel", "leather", "iconic"], "keywords": ["LC4 シェーズロング", "名作椅子", "名作家具", "chair", "chaise", "lounge", "lie_down", "steel", "leather", "iconic"]}, {"id": "F029", "category": "名作椅子", "name": "バルセロナチェア", "type": "名作家具", "description": "X字脚と革クッションが特徴の格式あるラウンジチェア。", "tags": ["chair", "lounge", "leather", "steel", "x_leg", "iconic"], "keywords": ["バルセロナチェア", "名作椅子", "名作家具", "chair", "lounge", "leather", "steel", "x_leg", "iconic"]}, {"id": "F030", "category": "名作椅子", "name": "イームズ ラウンジチェア", "type": "名作家具", "description": "成形合板シェルと革クッション、オットマンを伴う安楽椅子。", "tags": ["chair", "lounge", "leather", "plywood", "ottoman", "iconic", "relax"], "keywords": ["イームズ ラウンジチェア", "名作椅子", "名作家具", "chair", "lounge", "leather", "plywood", "ottoman", "iconic", "relax"]}, {"id": "F031", "category": "名作椅子", "name": "イームズ シェルチェア", "type": "名作家具", "description": "樹脂またはFRPの一体成形シェルを持つ椅子。", "tags": ["chair", "plastic", "shell", "modern", "dining"], "keywords": ["イームズ シェルチェア", "名作椅子", "名作家具", "chair", "plastic", "shell", "modern", "dining"]}, {"id": "F032", "category": "名作椅子", "name": "パントンチェア", "type": "名作家具", "description": "S字形の一体成形プラスチック椅子。", "tags": ["chair", "plastic", "cantilever", "s_shape", "iconic"], "keywords": ["パントンチェア", "名作椅子", "名作家具", "chair", "plastic", "cantilever", "s_shape", "iconic"]}, {"id": "F033", "category": "名作椅子", "name": "トーネット No.14", "type": "名作家具", "description": "曲げ木と籐張り座面のカフェチェア。", "tags": ["chair", "bentwood", "rattan", "cafe", "classic", "iconic"], "keywords": ["トーネット No.14", "名作椅子", "名作家具", "chair", "bentwood", "rattan", "cafe", "classic", "iconic"]}, {"id": "F034", "category": "名作椅子", "name": "マルセル・ブロイヤー チェスカチェア", "type": "名作家具", "description": "カンチレバー脚、籐張り、チューブスチールの椅子。", "tags": ["chair", "cantilever", "steel", "rattan", "dining", "modern"], "keywords": ["マルセル・ブロイヤー チェスカチェア", "名作椅子", "名作家具", "chair", "cantilever", "steel", "rattan", "dining", "modern"]}, {"id": "F035", "category": "名作椅子", "name": "ヒルハウスチェア", "type": "名作家具", "description": "非常に高い格子状背もたれを持つ装飾的な椅子。", "tags": ["chair", "high_back", "wood", "grid", "decorative", "iconic"], "keywords": ["ヒルハウスチェア", "名作椅子", "名作家具", "chair", "high_back", "wood", "grid", "decorative", "iconic"]}, {"id": "F036", "category": "ソファ", "name": "一人掛けソファ", "type": "一般名称", "description": "ソファの構造を持つ一人用の椅子。", "tags": ["sofa", "one_seat", "soft", "arms", "living"], "keywords": ["一人掛けソファ", "ソファ", "一般名称", "sofa", "one_seat", "soft", "arms", "living"]}, {"id": "F037", "category": "ソファ", "name": "二人掛けソファ", "type": "一般名称", "description": "二人で座る標準的なソファ。", "tags": ["sofa", "two_seat", "living", "soft"], "keywords": ["二人掛けソファ", "ソファ", "一般名称", "sofa", "two_seat", "living", "soft"]}, {"id": "F038", "category": "ソファ", "name": "三人掛けソファ", "type": "一般名称", "description": "三人程度で座る横長のソファ。", "tags": ["sofa", "three_seat", "living", "long"], "keywords": ["三人掛けソファ", "ソファ", "一般名称", "sofa", "three_seat", "living", "long"]}, {"id": "F039", "category": "ソファ", "name": "カウチソファ", "type": "一般名称", "description": "足を伸ばせる片側長めのソファ。", "tags": ["sofa", "chaise", "long", "living", "lie_down"], "keywords": ["カウチソファ", "ソファ", "一般名称", "sofa", "chaise", "long", "living", "lie_down"]}, {"id": "F040", "category": "ソファ", "name": "コーナーソファ", "type": "一般名称", "description": "L字やコーナー配置に適したソファ。", "tags": ["sofa", "l_shape", "corner", "living"], "keywords": ["コーナーソファ", "ソファ", "一般名称", "sofa", "l_shape", "corner", "living"]}, {"id": "F041", "category": "ソファ", "name": "ソファベッド", "type": "一般名称", "description": "ベッドとしても使える変形ソファ。", "tags": ["sofa", "bed", "convertible", "living"], "keywords": ["ソファベッド", "ソファ", "一般名称", "sofa", "bed", "convertible", "living"]}, {"id": "F042", "category": "ソファ", "name": "ローソファ", "type": "一般名称", "description": "座面が低く床に近いソファ。", "tags": ["sofa", "low_seat", "floor", "living", "japanese"], "keywords": ["ローソファ", "ソファ", "一般名称", "sofa", "low_seat", "floor", "living", "japanese"]}, {"id": "F043", "category": "ソファ", "name": "ベンチソファ", "type": "一般名称", "description": "背や肘が控えめなベンチ状ソファ。", "tags": ["sofa", "bench", "long", "simple"], "keywords": ["ベンチソファ", "ソファ", "一般名称", "sofa", "bench", "long", "simple"]}, {"id": "F044", "category": "ソファ", "name": "モジュールソファ", "type": "一般名称", "description": "複数ユニットを組み合わせるソファ。", "tags": ["sofa", "module", "customizable", "living"], "keywords": ["モジュールソファ", "ソファ", "一般名称", "sofa", "module", "customizable", "living"]}, {"id": "F045", "category": "ソファ", "name": "ラブソファ", "type": "一般名称", "description": "二人用の小ぶりなソファ。", "tags": ["sofa", "two_seat", "compact", "living"], "keywords": ["ラブソファ", "ソファ", "一般名称", "sofa", "two_seat", "compact", "living"]}, {"id": "F046", "category": "テーブル", "name": "コーヒーテーブル", "type": "一般名称", "description": "ソファ前に置く低めのテーブル。", "tags": ["table", "low", "living", "coffee"], "keywords": ["コーヒーテーブル", "テーブル", "一般名称", "table", "low", "living", "coffee"]}, {"id": "F047", "category": "テーブル", "name": "ローテーブル", "type": "一般名称", "description": "床座やソファ前に使う低いテーブル。", "tags": ["table", "low", "living", "japanese"], "keywords": ["ローテーブル", "テーブル", "一般名称", "table", "low", "living", "japanese"]}, {"id": "F048", "category": "テーブル", "name": "センターテーブル", "type": "一般名称", "description": "リビング中央に置くテーブル。", "tags": ["table", "low", "living", "center"], "keywords": ["センターテーブル", "テーブル", "一般名称", "table", "low", "living", "center"]}, {"id": "F049", "category": "テーブル", "name": "サイドテーブル", "type": "一般名称", "description": "ソファやベッド横に置く小型テーブル。", "tags": ["table", "small", "side", "living", "bedroom"], "keywords": ["サイドテーブル", "テーブル", "一般名称", "table", "small", "side", "living", "bedroom"]}, {"id": "F050", "category": "テーブル", "name": "ネストテーブル", "type": "一般名称", "description": "大中小を入れ子に収納できるテーブル。", "tags": ["table", "nesting", "small", "set"], "keywords": ["ネストテーブル", "テーブル", "一般名称", "table", "nesting", "small", "set"]}, {"id": "F051", "category": "テーブル", "name": "コンソールテーブル", "type": "一般名称", "description": "壁付けや玄関に置く奥行き浅めの飾り台。", "tags": ["table", "narrow", "wall", "entry", "display"], "keywords": ["コンソールテーブル", "テーブル", "一般名称", "table", "narrow", "wall", "entry", "display"]}, {"id": "F052", "category": "テーブル", "name": "ダイニングテーブル", "type": "一般名称", "description": "食事用の高さのあるテーブル。", "tags": ["table", "dining", "standard_height"], "keywords": ["ダイニングテーブル", "テーブル", "一般名称", "table", "dining", "standard_height"]}, {"id": "F053", "category": "テーブル", "name": "エクステンションテーブル", "type": "一般名称", "description": "天板を伸長できるテーブル。", "tags": ["table", "dining", "extendable"], "keywords": ["エクステンションテーブル", "テーブル", "一般名称", "table", "dining", "extendable"]}, {"id": "F054", "category": "テーブル", "name": "バタフライテーブル", "type": "一般名称", "description": "折りたたみ天板を広げられるテーブル。", "tags": ["table", "folding", "extendable", "compact"], "keywords": ["バタフライテーブル", "テーブル", "一般名称", "table", "folding", "extendable", "compact"]}, {"id": "F055", "category": "テーブル", "name": "ドロップリーフテーブル", "type": "一般名称", "description": "左右の天板を垂らして収納できるテーブル。", "tags": ["table", "folding", "classic", "extendable"], "keywords": ["ドロップリーフテーブル", "テーブル", "一般名称", "table", "folding", "classic", "extendable"]}, {"id": "F056", "category": "テーブル", "name": "ラウンドテーブル", "type": "一般名称", "description": "円形のテーブル。", "tags": ["table", "round", "dining", "living"], "keywords": ["ラウンドテーブル", "テーブル", "一般名称", "table", "round", "dining", "living"]}, {"id": "F057", "category": "テーブル", "name": "カフェテーブル", "type": "一般名称", "description": "小ぶりで軽食・喫茶向きのテーブル。", "tags": ["table", "small", "cafe", "round"], "keywords": ["カフェテーブル", "テーブル", "一般名称", "table", "small", "cafe", "round"]}, {"id": "F058", "category": "テーブル", "name": "座卓", "type": "一般名称", "description": "和室で床座に使う低いテーブル。", "tags": ["table", "low", "japanese", "tatami"], "keywords": ["座卓", "テーブル", "一般名称", "table", "low", "japanese", "tatami"]}, {"id": "F059", "category": "名作テーブル", "name": "イサム・ノグチ コーヒーテーブル", "type": "名作家具", "description": "有機的な木製脚とガラス天板の彫刻的テーブル。", "tags": ["table", "coffee", "glass", "wood", "organic", "iconic"], "keywords": ["イサム・ノグチ コーヒーテーブル", "名作テーブル", "名作家具", "table", "coffee", "glass", "wood", "organic", "iconic"]}, {"id": "F060", "category": "名作テーブル", "name": "チューリップテーブル", "type": "名作家具", "description": "一本脚のペデスタルベースを持つ丸型・楕円型テーブル。", "tags": ["table", "pedestal", "round", "modern", "iconic"], "keywords": ["チューリップテーブル", "名作テーブル", "名作家具", "table", "pedestal", "round", "modern", "iconic"]}, {"id": "F061", "category": "収納", "name": "チェスト", "type": "一般名称", "description": "引き出し収納家具。衣類や小物をしまう。", "tags": ["storage", "drawers", "clothes", "bedroom"], "keywords": ["チェスト", "収納", "一般名称", "storage", "drawers", "clothes", "bedroom"]}, {"id": "F062", "category": "収納", "name": "キャビネット", "type": "一般名称", "description": "扉や引き出し付きの箱型収納。", "tags": ["storage", "cabinet", "doors", "general"], "keywords": ["キャビネット", "収納", "一般名称", "storage", "cabinet", "doors", "general"]}, {"id": "F063", "category": "収納", "name": "サイドボード", "type": "一般名称", "description": "横長で腰高の収納家具。食器や雑貨を収納。", "tags": ["storage", "sideboard", "long", "low", "dining", "living"], "keywords": ["サイドボード", "収納", "一般名称", "storage", "sideboard", "long", "low", "dining", "living"]}, {"id": "F064", "category": "収納", "name": "リビングボード", "type": "一般名称", "description": "リビング用の横長収納家具。", "tags": ["storage", "living", "long", "low"], "keywords": ["リビングボード", "収納", "一般名称", "storage", "living", "long", "low"]}, {"id": "F065", "category": "収納", "name": "テレビボード", "type": "一般名称", "description": "テレビを置くための横長収納家具。", "tags": ["storage", "tv", "long", "low", "living"], "keywords": ["テレビボード", "収納", "一般名称", "storage", "tv", "long", "low", "living"]}, {"id": "F066", "category": "収納", "name": "シェルフ", "type": "一般名称", "description": "オープン棚。見せる収納に向く。", "tags": ["storage", "shelf", "open", "display"], "keywords": ["シェルフ", "収納", "一般名称", "storage", "shelf", "open", "display"]}, {"id": "F067", "category": "収納", "name": "ブックシェルフ", "type": "一般名称", "description": "本を収納する棚。", "tags": ["storage", "bookshelf", "book", "open"], "keywords": ["ブックシェルフ", "収納", "一般名称", "storage", "bookshelf", "book", "open"]}, {"id": "F068", "category": "収納", "name": "オープンラック", "type": "一般名称", "description": "背板や扉が少ない開放的な棚。", "tags": ["storage", "rack", "open"], "keywords": ["オープンラック", "収納", "一般名称", "storage", "rack", "open"]}, {"id": "F069", "category": "収納", "name": "キューブボックス", "type": "一般名称", "description": "正方形ユニット型の収納。", "tags": ["storage", "cube", "module", "compact"], "keywords": ["キューブボックス", "収納", "一般名称", "storage", "cube", "module", "compact"]}, {"id": "F070", "category": "収納", "name": "ワゴン", "type": "一般名称", "description": "キャスター付きの移動収納。", "tags": ["storage", "wagon", "casters", "mobile"], "keywords": ["ワゴン", "収納", "一般名称", "storage", "wagon", "casters", "mobile"]}, {"id": "F071", "category": "収納", "name": "トランク／収納ボックス", "type": "一般名称", "description": "蓋付き箱型収納。", "tags": ["storage", "box", "lid", "portable"], "keywords": ["トランク／収納ボックス", "収納", "一般名称", "storage", "box", "lid", "portable"]}, {"id": "F072", "category": "収納", "name": "ラタンバスケット", "type": "一般名称", "description": "ラタン素材のかご収納。", "tags": ["storage", "basket", "rattan", "natural"], "keywords": ["ラタンバスケット", "収納", "一般名称", "storage", "basket", "rattan", "natural"]}, {"id": "F073", "category": "収納", "name": "ランドリーバスケット", "type": "一般名称", "description": "洗濯物を入れるかご。", "tags": ["storage", "basket", "laundry"], "keywords": ["ランドリーバスケット", "収納", "一般名称", "storage", "basket", "laundry"]}, {"id": "F074", "category": "収納", "name": "ハンガーラック", "type": "一般名称", "description": "衣類を掛けるためのラック。", "tags": ["storage", "clothes", "hanger", "open"], "keywords": ["ハンガーラック", "収納", "一般名称", "storage", "clothes", "hanger", "open"]}, {"id": "F075", "category": "収納", "name": "ワードローブ", "type": "一般名称", "description": "衣類を掛けたりしまったりする大型収納。", "tags": ["storage", "clothes", "wardrobe", "tall", "doors"], "keywords": ["ワードローブ", "収納", "一般名称", "storage", "clothes", "wardrobe", "tall", "doors"]}, {"id": "F076", "category": "収納", "name": "カップボード", "type": "一般名称", "description": "食器棚。キッチン・ダイニング用。", "tags": ["storage", "kitchen", "dish", "tall"], "keywords": ["カップボード", "収納", "一般名称", "storage", "kitchen", "dish", "tall"]}, {"id": "F077", "category": "収納", "name": "飾り棚／ディスプレイキャビネット", "type": "一般名称", "description": "ガラス扉などで飾る収納。", "tags": ["storage", "display", "glass", "doors"], "keywords": ["飾り棚／ディスプレイキャビネット", "収納", "一般名称", "storage", "display", "glass", "doors"]}, {"id": "F078", "category": "収納", "name": "書類キャビネット", "type": "一般名称", "description": "書類やバインダーを収納する家具。", "tags": ["storage", "file", "papers", "office"], "keywords": ["書類キャビネット", "収納", "一般名称", "storage", "file", "papers", "office"]}, {"id": "F079", "category": "収納", "name": "ベッド下収納", "type": "一般名称", "description": "ベッド下に入れる低い収納。", "tags": ["storage", "under_bed", "low"], "keywords": ["ベッド下収納", "収納", "一般名称", "storage", "under_bed", "low"]}, {"id": "F080", "category": "収納", "name": "スリムストッカー", "type": "一般名称", "description": "隙間に置ける細長い収納。", "tags": ["storage", "slim", "narrow", "kitchen"], "keywords": ["スリムストッカー", "収納", "一般名称", "storage", "slim", "narrow", "kitchen"]}, {"id": "F081", "category": "ベッド", "name": "ベッドフレーム", "type": "一般名称", "description": "マットレスを載せる寝具の骨組み。", "tags": ["bed", "frame", "sleep"], "keywords": ["ベッドフレーム", "ベッド", "一般名称", "bed", "frame", "sleep"]}, {"id": "F082", "category": "ベッド", "name": "すのこベッド", "type": "一般名称", "description": "通気性のよいすのこ床板のベッド。", "tags": ["bed", "slatted", "wood"], "keywords": ["すのこベッド", "ベッド", "一般名称", "bed", "slatted", "wood"]}, {"id": "F083", "category": "ベッド", "name": "収納付きベッド", "type": "一般名称", "description": "引き出しや跳ね上げ収納のあるベッド。", "tags": ["bed", "storage", "drawers"], "keywords": ["収納付きベッド", "ベッド", "一般名称", "bed", "storage", "drawers"]}, {"id": "F084", "category": "ベッド", "name": "ロフトベッド", "type": "一般名称", "description": "寝床を高く上げ、下を活用できるベッド。", "tags": ["bed", "tall", "loft", "space_saving"], "keywords": ["ロフトベッド", "ベッド", "一般名称", "bed", "tall", "loft", "space_saving"]}, {"id": "F085", "category": "ベッド", "name": "二段ベッド", "type": "一般名称", "description": "上下二段のベッド。", "tags": ["bed", "bunk", "two_level"], "keywords": ["二段ベッド", "ベッド", "一般名称", "bed", "bunk", "two_level"]}, {"id": "F086", "category": "デスク", "name": "デスク", "type": "一般名称", "description": "作業や勉強用の机。", "tags": ["desk", "work", "office"], "keywords": ["デスク", "デスク", "一般名称", "desk", "work", "office"]}, {"id": "F087", "category": "デスク", "name": "ライティングビューロー", "type": "一般名称", "description": "扉を開くと書き物机になる収納家具。", "tags": ["desk", "storage", "classic", "folding"], "keywords": ["ライティングビューロー", "デスク", "一般名称", "desk", "storage", "classic", "folding"]}, {"id": "F088", "category": "デスク", "name": "ドレッサー", "type": "一般名称", "description": "鏡付きの化粧台。", "tags": ["desk", "mirror", "vanity", "bedroom"], "keywords": ["ドレッサー", "デスク", "一般名称", "desk", "mirror", "vanity", "bedroom"]}, {"id": "F089", "category": "デスク", "name": "スタンディングデスク", "type": "一般名称", "description": "立って作業できる高さの机。", "tags": ["desk", "tall", "work", "adjustable"], "keywords": ["スタンディングデスク", "デスク", "一般名称", "desk", "tall", "work", "adjustable"]}, {"id": "F090", "category": "デスク", "name": "PCデスク", "type": "一般名称", "description": "パソコン作業向きの机。", "tags": ["desk", "computer", "work"], "keywords": ["PCデスク", "デスク", "一般名称", "desk", "computer", "work"]}, {"id": "F091", "category": "照明", "name": "フロアランプ", "type": "一般名称", "description": "床置きの照明。", "tags": ["lighting", "floor", "living"], "keywords": ["フロアランプ", "照明", "一般名称", "lighting", "floor", "living"]}, {"id": "F092", "category": "照明", "name": "テーブルランプ", "type": "一般名称", "description": "卓上用の照明。", "tags": ["lighting", "table", "small"], "keywords": ["テーブルランプ", "照明", "一般名称", "lighting", "table", "small"]}, {"id": "F093", "category": "照明", "name": "ペンダントライト", "type": "一般名称", "description": "天井から吊るす照明。", "tags": ["lighting", "ceiling", "pendant"], "keywords": ["ペンダントライト", "照明", "一般名称", "lighting", "ceiling", "pendant"]}, {"id": "F094", "category": "照明", "name": "シャンデリア", "type": "一般名称", "description": "装飾的な多灯照明。", "tags": ["lighting", "ceiling", "decorative", "classical"], "keywords": ["シャンデリア", "照明", "一般名称", "lighting", "ceiling", "decorative", "classical"]}, {"id": "F095", "category": "その他", "name": "パーテーション", "type": "一般名称", "description": "空間を仕切る家具。", "tags": ["partition", "screen", "room_divider"], "keywords": ["パーテーション", "その他", "一般名称", "partition", "screen", "room_divider"]}, {"id": "F096", "category": "その他", "name": "屏風", "type": "一般名称", "description": "和風の折りたたみ式間仕切り。", "tags": ["partition", "folding", "japanese", "decorative"], "keywords": ["屏風", "その他", "一般名称", "partition", "folding", "japanese", "decorative"]}, {"id": "F097", "category": "その他", "name": "コートスタンド", "type": "一般名称", "description": "上着や帽子を掛けるスタンド。", "tags": ["storage", "coat", "hanger", "entry"], "keywords": ["コートスタンド", "その他", "一般名称", "storage", "coat", "hanger", "entry"]}, {"id": "F098", "category": "その他", "name": "マガジンラック", "type": "一般名称", "description": "雑誌を立てて収納するラック。", "tags": ["storage", "magazine", "rack", "living"], "keywords": ["マガジンラック", "その他", "一般名称", "storage", "magazine", "rack", "living"]}, {"id": "F099", "category": "その他", "name": "ミラー", "type": "一般名称", "description": "姿見や壁掛け鏡。", "tags": ["mirror", "decorative", "wall", "floor"], "keywords": ["ミラー", "その他", "一般名称", "mirror", "decorative", "wall", "floor"]}, {"id": "F100", "category": "その他", "name": "プランタースタンド", "type": "一般名称", "description": "植物を飾る台。", "tags": ["stand", "plant", "display"], "keywords": ["プランタースタンド", "その他", "一般名称", "stand", "plant", "display"]}];
+    const questions = [{"id": "Q001", "text": "これは座るための家具ですか？", "featureKey": "is_seating", "positiveTags": ["chair", "seat", "sofa"], "negativeTags": ["table", "storage", "lighting", "bed", "desk"], "weight": 2.0, "group": "大分類"}, {"id": "Q002", "text": "一人で使う家具ですか？", "featureKey": "is_one_person", "positiveTags": ["one_seat", "chair"], "negativeTags": ["multiple", "two_seat", "three_seat", "long"], "weight": 1.6, "group": "利用人数"}, {"id": "Q003", "text": "複数人で座る家具ですか？", "featureKey": "is_multi_seat", "positiveTags": ["multiple", "two_seat", "three_seat", "sofa", "bench"], "negativeTags": ["one_seat"], "weight": 1.6, "group": "利用人数"}, {"id": "Q004", "text": "食事をする場面で使う家具ですか？", "featureKey": "is_dining_use", "positiveTags": ["dining", "cafe", "standard_height"], "negativeTags": ["lounge", "relax", "low_seat", "bedroom"], "weight": 1.8, "group": "用途"}, {"id": "Q005", "text": "くつろぐ・休むための家具ですか？", "featureKey": "is_relax_use", "positiveTags": ["relax", "lounge", "living", "soft"], "negativeTags": ["dining", "work", "office"], "weight": 1.8, "group": "用途"}, {"id": "Q006", "text": "床に近い低い家具ですか？", "featureKey": "is_low", "positiveTags": ["low", "low_seat", "floor", "japanese"], "negativeTags": ["tall", "standard_height", "counter"], "weight": 1.5, "group": "高さ"}, {"id": "Q007", "text": "座面はダイニングチェア程度の高さですか？", "featureKey": "is_standard_seat", "positiveTags": ["standard_height", "dining"], "negativeTags": ["low_seat", "floor", "tall"], "weight": 1.3, "group": "高さ"}, {"id": "Q008", "text": "背もたれがありますか？", "featureKey": "has_back", "positiveTags": ["chair", "sofa", "high_back", "spindle_back"], "negativeTags": ["stool", "ottoman", "table"], "weight": 1.2, "group": "形状"}, {"id": "Q009", "text": "肘掛けがありますか？", "featureKey": "has_arms", "positiveTags": ["arms", "arm_optional", "sofa"], "negativeTags": ["no_arms"], "weight": 1.3, "group": "形状"}, {"id": "Q010", "text": "背もたれはかなり高いですか？", "featureKey": "has_high_back", "positiveTags": ["high_back"], "negativeTags": ["low_back", "stool", "no_back"], "weight": 1.4, "group": "形状"}, {"id": "Q011", "text": "背もたれに細い棒が並んでいますか？", "featureKey": "has_spindle", "positiveTags": ["spindle_back", "windsor"], "negativeTags": ["solid_back", "shell"], "weight": 1.8, "group": "形状"}, {"id": "Q012", "text": "背もたれがY字に見えますか？", "featureKey": "has_y_back", "positiveTags": ["y_back"], "negativeTags": ["spindle_back", "solid_back"], "weight": 2.5, "group": "識別特徴"}, {"id": "Q013", "text": "脚が揺りかごのように弧を描いていますか？", "featureKey": "is_rocking", "positiveTags": ["rocking"], "negativeTags": ["standard_legs", "casters"], "weight": 2.2, "group": "機構"}, {"id": "Q014", "text": "角度を変えてリクライニングできますか？", "featureKey": "is_reclining", "positiveTags": ["reclining", "mechanism"], "negativeTags": ["fixed"], "weight": 2.0, "group": "機構"}, {"id": "Q015", "text": "足を伸ばして横になれそうですか？", "featureKey": "can_lie_down", "positiveTags": ["lie_down", "chaise", "bed", "long"], "negativeTags": ["upright", "dining"], "weight": 2.0, "group": "用途"}, {"id": "Q016", "text": "足置きだけのような低い家具ですか？", "featureKey": "is_footstool", "positiveTags": ["footstool", "ottoman"], "negativeTags": ["chair", "sofa", "table"], "weight": 2.0, "group": "用途"}, {"id": "Q017", "text": "背もたれがありませんか？", "featureKey": "no_back", "positiveTags": ["no_back", "stool", "ottoman"], "negativeTags": ["chair", "sofa", "high_back"], "weight": 1.8, "group": "形状"}, {"id": "Q018", "text": "カウンター用の高い椅子に見えますか？", "featureKey": "is_counter_height", "positiveTags": ["counter", "bar", "tall", "footrest"], "negativeTags": ["low_seat", "dining"], "weight": 2.0, "group": "高さ"}, {"id": "Q019", "text": "木材が主素材ですか？", "featureKey": "material_wood", "positiveTags": ["wood", "bentwood", "plywood"], "negativeTags": ["plastic", "steel", "glass"], "weight": 1.3, "group": "素材"}, {"id": "Q020", "text": "ラタン・籐・編み素材が使われていますか？", "featureKey": "material_rattan", "positiveTags": ["rattan", "basket", "natural"], "negativeTags": ["plastic", "metal", "glass"], "weight": 1.8, "group": "素材"}, {"id": "Q021", "text": "ペーパーコードの座面に見えますか？", "featureKey": "material_paper_cord", "positiveTags": ["paper_cord"], "negativeTags": ["rattan", "upholstery", "plastic"], "weight": 2.2, "group": "素材"}, {"id": "Q022", "text": "革張りに見えますか？", "featureKey": "material_leather", "positiveTags": ["leather"], "negativeTags": ["fabric", "wood", "rattan"], "weight": 1.6, "group": "素材"}, {"id": "Q023", "text": "布張り・クッション性が強いですか？", "featureKey": "material_fabric_soft", "positiveTags": ["soft", "upholstery", "sofa"], "negativeTags": ["wood", "plastic", "steel"], "weight": 1.5, "group": "素材"}, {"id": "Q024", "text": "プラスチックや樹脂の一体成形に見えますか？", "featureKey": "material_plastic_shell", "positiveTags": ["plastic", "shell", "s_shape"], "negativeTags": ["wood", "rattan", "leather"], "weight": 1.8, "group": "素材"}, {"id": "Q025", "text": "金属フレームが目立ちますか？", "featureKey": "material_steel", "positiveTags": ["steel", "metal"], "negativeTags": ["wood", "rattan", "plastic"], "weight": 1.5, "group": "素材"}, {"id": "Q026", "text": "ガラス天板がありますか？", "featureKey": "has_glass_top", "positiveTags": ["glass", "table"], "negativeTags": ["chair", "storage", "wood"], "weight": 2.0, "group": "素材"}, {"id": "Q027", "text": "曲線的で有機的な形ですか？", "featureKey": "is_curved_organic", "positiveTags": ["curved", "organic", "bentwood"], "negativeTags": ["boxy", "straight"], "weight": 1.5, "group": "意匠"}, {"id": "Q028", "text": "箱型・直線的な印象ですか？", "featureKey": "is_boxy", "positiveTags": ["boxy", "cabinet", "storage"], "negativeTags": ["curved", "organic"], "weight": 1.3, "group": "意匠"}, {"id": "Q029", "text": "北欧デザインらしいですか？", "featureKey": "is_nordic", "positiveTags": ["nordic", "wood", "simple"], "negativeTags": ["classical", "industrial"], "weight": 1.4, "group": "様式"}, {"id": "Q030", "text": "クラシック・アンティーク調ですか？", "featureKey": "is_classic", "positiveTags": ["classic", "classical", "bentwood", "windsor"], "negativeTags": ["modern", "nordic", "plastic"], "weight": 1.4, "group": "様式"}, {"id": "Q031", "text": "モダン・近代デザインらしいですか？", "featureKey": "is_modern", "positiveTags": ["modern", "iconic", "steel", "plastic"], "negativeTags": ["classic", "japanese"], "weight": 1.4, "group": "様式"}, {"id": "Q032", "text": "和室・床座に合いそうですか？", "featureKey": "is_japanese_floor", "positiveTags": ["japanese", "tatami", "floor", "low"], "negativeTags": ["counter", "tall", "office"], "weight": 1.6, "group": "様式"}, {"id": "Q033", "text": "名作家具・デザイナーズ家具っぽいですか？", "featureKey": "is_iconic", "positiveTags": ["iconic"], "negativeTags": ["general"], "weight": 1.4, "group": "様式"}, {"id": "Q034", "text": "テーブルですか？", "featureKey": "is_table", "positiveTags": ["table"], "negativeTags": ["chair", "sofa", "storage", "lighting"], "weight": 2.0, "group": "大分類"}, {"id": "Q035", "text": "ソファ前に置く低めのテーブルですか？", "featureKey": "is_coffee_table", "positiveTags": ["coffee", "low", "living", "center"], "negativeTags": ["dining", "tall", "desk"], "weight": 1.8, "group": "テーブル"}, {"id": "Q036", "text": "食事用のテーブルですか？", "featureKey": "is_dining_table", "positiveTags": ["dining", "table", "standard_height"], "negativeTags": ["low", "coffee", "side"], "weight": 1.8, "group": "テーブル"}, {"id": "Q037", "text": "壁際や玄関に置く奥行き浅い台ですか？", "featureKey": "is_console", "positiveTags": ["console", "narrow", "wall", "entry"], "negativeTags": ["center", "dining"], "weight": 1.8, "group": "テーブル"}, {"id": "Q038", "text": "丸いテーブルですか？", "featureKey": "is_round", "positiveTags": ["round"], "negativeTags": ["rectangular", "boxy"], "weight": 1.2, "group": "形状"}, {"id": "Q039", "text": "天板を広げたり畳んだりできますか？", "featureKey": "is_extendable", "positiveTags": ["extendable", "folding"], "negativeTags": ["fixed"], "weight": 1.8, "group": "機構"}, {"id": "Q040", "text": "収納家具ですか？", "featureKey": "is_storage", "positiveTags": ["storage", "cabinet", "shelf", "drawers"], "negativeTags": ["chair", "table", "lighting"], "weight": 2.0, "group": "大分類"}, {"id": "Q041", "text": "引き出しが主役ですか？", "featureKey": "has_drawers", "positiveTags": ["drawers", "chest"], "negativeTags": ["open", "doors", "basket"], "weight": 1.7, "group": "収納"}, {"id": "Q042", "text": "扉付きですか？", "featureKey": "has_doors", "positiveTags": ["doors", "cabinet", "wardrobe"], "negativeTags": ["open", "basket"], "weight": 1.5, "group": "収納"}, {"id": "Q043", "text": "棚板が見えるオープン収納ですか？", "featureKey": "is_open_shelf", "positiveTags": ["open", "shelf", "rack"], "negativeTags": ["doors", "drawers"], "weight": 1.6, "group": "収納"}, {"id": "Q044", "text": "本を収納する家具ですか？", "featureKey": "stores_books", "positiveTags": ["book", "bookshelf"], "negativeTags": ["clothes", "dish", "tv"], "weight": 1.8, "group": "収納"}, {"id": "Q045", "text": "テレビを載せる家具ですか？", "featureKey": "stores_tv", "positiveTags": ["tv", "living", "long", "low"], "negativeTags": ["book", "clothes", "kitchen"], "weight": 2.0, "group": "収納"}, {"id": "Q046", "text": "衣類を収納する家具ですか？", "featureKey": "stores_clothes", "positiveTags": ["clothes", "wardrobe", "hanger", "drawers"], "negativeTags": ["book", "dish", "tv"], "weight": 1.6, "group": "収納"}, {"id": "Q047", "text": "キャスター付きで動かせますか？", "featureKey": "has_casters", "positiveTags": ["casters", "mobile", "wagon"], "negativeTags": ["fixed"], "weight": 1.6, "group": "機構"}, {"id": "Q048", "text": "照明器具ですか？", "featureKey": "is_lighting", "positiveTags": ["lighting"], "negativeTags": ["chair", "table", "storage"], "weight": 2.0, "group": "大分類"}, {"id": "Q049", "text": "床に置くスタンド型の照明ですか？", "featureKey": "is_floor_lamp", "positiveTags": ["floor", "lighting"], "negativeTags": ["table", "ceiling"], "weight": 1.8, "group": "照明"}, {"id": "Q050", "text": "天井から吊るす照明ですか？", "featureKey": "is_pendant", "positiveTags": ["ceiling", "pendant"], "negativeTags": ["floor", "table"], "weight": 1.8, "group": "照明"}];
+
+    const answerOptions = [
+      { label: "はい", score: 1 },
+      { label: "たぶんそう", score: 0.5 },
+      { label: "わからない", score: 0 },
+      { label: "たぶん違う", score: -0.5 },
+      { label: "いいえ", score: -1 }
+    ];
+
+    let currentQuestionIndex = 0;
+    let answers = [];
+    let lastResults = [];
+    let resultFilterText = "";
+    let resultMessage = "";
+    const MAX_QUESTIONS = 50;
+    const CONFIDENCE_THRESHOLD = 80;
+    const app = document.getElementById("app");
+
+    function escapeHtml(text) {
+      return String(text ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+    }
+
+    function showHome() {
+      app.innerHTML = `
+        <h1>Furna</h1>
+        <p class="lead">見たことはあるけれど名前がわからない家具を、50問の質問から絞り込みます。登録家具はFurnitureMasterの${furnitures.length}件です。</p>
+        <button onclick="startDiagnosis()">診断を始める</button>
+        <button class="ghost" onclick="showFurnitureList()">登録家具一覧を見る</button>
+      `;
+    }
+
+    function startDiagnosis() {
+      currentQuestionIndex = 0;
+      answers = [];
+      resultFilterText = "";
+      resultMessage = "";
+      showQuestion();
+    }
+
+    function getCurrentTopPercentage() {
+      const top = calculateResults()[0];
+      if (!top || Number.isNaN(top.percentage)) return 0;
+      return top.percentage;
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestionIndex];
+      const totalQuestions = Math.min(MAX_QUESTIONS, questions.length);
+      const progress = Math.round((currentQuestionIndex / totalQuestions) * 100);
+      const topPercentage = getCurrentTopPercentage();
+      app.innerHTML = `
+        <div class="top-actions">
+          <button class="ghost" onclick="showHome()">最初に戻る</button>
+          <button class="ghost" onclick="skipToResults()">ここまでで結果を見る</button>
+        </div>
+        <p class="muted">質問 ${currentQuestionIndex + 1} / ${Math.min(MAX_QUESTIONS, questions.length)}</p>
+        <div class="progress-wrap"><div class="progress-bar" style="width:${progress}%"></div></div>
+        <h2>${escapeHtml(q.text)}</h2>
+        <p class="lead">診断結果一位は${topPercentage}%まで絞り込み完了</p>
+        ${answerOptions.map(option => `<button onclick="answerQuestion(${option.score})">${option.label}</button>`).join("")}
+      `;
+    }
+
+    function answerQuestion(score) {
+      const q = questions[currentQuestionIndex];
+      answers.push({
+        questionId: q.id,
+        question: q.text,
+        group: q.group,
+        positiveTags: q.positiveTags,
+        negativeTags: q.negativeTags,
+        weight: q.weight,
+        score
+      });
+
+      const currentResults = calculateResults();
+      const topPercentage = currentResults[0]?.percentage ?? 0;
+
+      if (topPercentage >= CONFIDENCE_THRESHOLD) {
+        resultMessage = "";
+        lastResults = currentResults;
+        renderResults();
+        return;
+      }
+
+      currentQuestionIndex++;
+      const totalQuestions = Math.min(MAX_QUESTIONS, questions.length);
+
+      if (currentQuestionIndex < totalQuestions) {
+        showQuestion();
+      } else {
+        resultMessage = "該当する家具を見つけられませんでした。";
+        lastResults = currentResults;
+        renderResults();
+      }
+    }
+
+    function skipToResults() {
+      if (answers.length === 0) {
+        alert("最低1問は回答してください。");
+        return;
+      }
+      showResults();
+    }
+
+    function tagMatchScore(furnitureTags, answer) {
+      const hasPositive = answer.positiveTags.some(tag => furnitureTags.includes(tag));
+      const hasNegative = answer.negativeTags.some(tag => furnitureTags.includes(tag));
+      if (hasPositive) return 1;
+      if (hasNegative) return -1;
+      return 0;
+    }
+
+    function calculateResults() {
+      const raw = furnitures.map(furniture => {
+        let score = 0;
+        const reasons = [];
+        answers.forEach(answer => {
+          const match = tagMatchScore(furniture.tags, answer);
+          const delta = answer.score * answer.weight * match;
+          score += delta;
+          if (delta > 0) reasons.push(answer.question.replace("ですか？", ""));
+        });
+        return { ...furniture, score, reasons };
+      });
+
+      // ExcelのScoringModelに合わせてsoftmaxで相対確率化。
+      const maxScore = Math.max(...raw.map(r => r.score));
+      const exps = raw.map(r => Math.exp(r.score - maxScore));
+      const sumExp = exps.reduce((a,b) => a + b, 0) || 1;
+      const results = raw.map((r, i) => ({
+        ...r,
+        probability: exps[i] / sumExp,
+        percentage: Math.round((exps[i] / sumExp) * 1000) / 10
+      })).sort((a,b) => b.probability - a.probability);
+      return results;
+    }
+
+    function showResults() {
+      resultMessage = "";
+      lastResults = calculateResults();
+      renderResults();
+    }
+
+    function renderResults() {
+      const normalized = resultFilterText.trim().toLowerCase();
+      const filtered = normalized
+        ? lastResults.filter(item => [item.name, item.category, item.type, item.description, ...item.tags].join(" ").toLowerCase().includes(normalized))
+        : lastResults;
+      app.innerHTML = `
+        <h1>診断結果</h1>
+        ${resultMessage ? `<p class="lead"><strong>${escapeHtml(resultMessage)}</strong><br>可能性がある家具を表示します。</p>` : `<p class="lead">回答数：${answers.length}問。上位候補を相対確率で表示しています。</p>`}
+        <input placeholder="結果内を検索：例 ラタン、北欧、椅子" value="${escapeHtml(resultFilterText)}" oninput="resultFilterText=this.value; renderResults();" />
+        ${filtered.slice(0, 15).map((item, index) => resultCard(item, index)).join("")}
+        <button class="secondary" onclick="startDiagnosis()">もう一度診断する</button>
+        <button class="ghost" onclick="showFurnitureList()">家具一覧を見る</button>
+        <button class="ghost" onclick="showHome()">最初に戻る</button>
+      `;
+    }
+
+    function resultCard(item, index) {
+      const reasonText = item.reasons.length ? item.reasons.slice(0,3).map(escapeHtml).join(" / ") : "明確な一致理由は少なめ";
+      return `
+        <div class="card result-card">
+          <div class="result-head">
+            <div>
+              <div class="rank">${index + 1}位</div>
+              <h2>${escapeHtml(item.name)}</h2>
+            </div>
+            <div class="percent">${item.percentage}%</div>
+          </div>
+          <p>${escapeHtml(item.description)}</p>
+          <p class="muted">分類：${escapeHtml(item.category)} / ${escapeHtml(item.type)}</p>
+          <p class="muted">一致理由：${reasonText}</p>
+          <button onclick="showDetail('${item.id}')">詳細を見る</button>
+        </div>`;
+    }
+
+    function showDetail(id) {
+      const item = furnitures.find(f => f.id === id) || lastResults.find(f => f.id === id);
+      const result = lastResults.find(f => f.id === id);
+      app.innerHTML = `
+        <button class="ghost" onclick="lastResults.length ? renderResults() : showFurnitureList()">戻る</button>
+        <h1>${escapeHtml(item.name)}</h1>
+        <p class="lead">${escapeHtml(item.description)}</p>
+        <div class="card">
+          <p><strong>ID：</strong>${escapeHtml(item.id)}</p>
+          <p><strong>カテゴリ：</strong>${escapeHtml(item.category)}</p>
+          <p><strong>種類：</strong>${escapeHtml(item.type)}</p>
+          ${result ? `<p><strong>今回の一致度：</strong>${result.percentage}%</p>` : ""}
+          <p><strong>検索キーワード：</strong>${item.keywords.map(escapeHtml).join(" / ")}</p>
+          <p><strong>タグ：</strong></p>
+          <div>${item.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>
+        </div>
+        <button class="secondary" onclick="window.open('https://www.google.com/search?q=' + encodeURIComponent('${item.name} 家具'), '_blank')">Googleで検索する</button>
+      `;
+    }
+
+    function showFurnitureList() {
+      lastResults = [];
+      const grouped = furnitures.reduce((acc, item) => {
+        acc[item.category] = acc[item.category] || [];
+        acc[item.category].push(item);
+        return acc;
+      }, {});
+      app.innerHTML = `
+        <button class="ghost" onclick="showHome()">最初に戻る</button>
+        <h1>登録家具一覧</h1>
+        <p class="lead">FurnitureMasterの${furnitures.length}件を読み込んでいます。</p>
+        ${Object.entries(grouped).map(([category, items]) => `
+          <div class="card">
+            <h2>${escapeHtml(category)}（${items.length}件）</h2>
+            <div class="grid">
+              ${items.map(item => `<button class="ghost small" onclick="showDetail('${item.id}')">${escapeHtml(item.name)}</button>`).join("")}
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    showHome();
+  </script>
+</body>
+</html>
