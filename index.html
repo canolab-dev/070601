@@ -116,14 +116,39 @@
       return String(text ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
     }
 
-    function showHome() {
-      app.innerHTML = `
-        <h1>Furna</h1>
-        <p class="lead">名前を知りたい家具を思い浮かべてください。50問の質問から絞り込みます。登録家具はFurnitureMasterの${furnitures.length}件です。</p>
-        <button onclick="startDiagnosis()">診断を始める</button>
-        <button class="ghost" onclick="showFurnitureList()">登録家具一覧を見る</button>
-      `;
-    }
+function showHome() {
+  app.innerHTML = `
+    <div style="text-align:center;">
+
+      <img
+        src="images/image_0001.png"
+        alt="Furna"
+        style="
+          width:280px;
+          max-width:90%;
+          display:block;
+          margin:0 auto 28px;
+        ">
+
+      <h1>Furna</h1>
+
+      <p class="lead">
+        名前を知りたい家具を思い浮かべてください。
+        50問の質問から絞り込みます。
+        登録家具はFurnitureMasterの${furnitures.length}件です。
+      </p>
+
+      <button onclick="startDiagnosis()">
+        診断を始める
+      </button>
+
+      <button class="ghost" onclick="showFurnitureList()">
+        登録家具一覧を見る
+      </button>
+
+    </div>
+  `;
+}
 
     function startDiagnosis() {
       currentQuestionIndex = 0;
