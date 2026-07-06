@@ -292,28 +292,41 @@
       `;
     }
 
-    function showFurnitureList() {
-      lastResults = [];
-      const grouped = furnitures.reduce((acc, item) => {
-        acc[item.category] = acc[item.category] || [];
-        acc[item.category].push(item);
-        return acc;
-      }, {});
-      app.innerHTML = `
-        <button class="ghost" onclick="showHome()">最初に戻る</button>
-        <h1>登録家具一覧</h1>
-        <p class="lead">FurnitureMasterの${furnitures.length}件を読み込んでいます。</p>
-        ${Object.entries(grouped).map(([category, items]) => `
-          <div class="card">
-            <h2>${escapeHtml(category)}（${items.length}件）</h2>
-            <div class="grid">
-              ${items.map(item => `<button class="ghost small" onclick="showDetail('${item.id}')">${escapeHtml(item.name)}</button>`).join("")}
-            </div>
-          </div>
-        `).join("")}
-      `;
-    }
+function showFurnitureList() {
+  lastResults = [];
 
+  const categoryImages = {
+    "椅子": "images/Home_0001.jpg",
+    "ソファ": "images/Home_0002.jpg",
+    "テーブル": "images/Home_0003.jpg",
+    "収納家具": "images/Home_0004.jpg",
+    "ベッド": "images/Home_0005.jpg",
+    "デスク": "images/Home_0006.jpg",
+    "照明": "images/Home_0007.jpg",
+    "パーテーション": "images/Home_0008.jpg"
+  };
+
+  const grouped = furnitures.reduce((acc, item) => {
+    acc[item.category] = acc[item.category] || [];
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
+  app.innerHTML = `
+    <button class="ghost" onclick="showHome()">最初に戻る</button>
+    <h1>登録家具一覧</h1>
+    <p class="lead">FurnitureMasterの${furnitures.length}件を読み込んでいます。</p>
+    ${Object.entries(grouped).map(([category, items]) => `
+      <div class="card">
+        ${categoryImages[category] ?`<img src="${categoryImages[category]}" alt="${escapeHtml(category)}" style="width:96px;height:96px;object-fit:contain;display:block;margin:0 auto 16px;">` : ""}
+        <h2>${escapeHtml(category)}（${items.length}件）</h2>
+        <div class="grid">
+          ${items.map(item => `<button class="ghost small" onclick="showDetail('${item.id}')">${escapeHtml(item.name)}</button>`).join("")}
+        </div>
+      </div>
+    `).join("")}
+  `;
+}
     showHome();
   </script>
 </body>
