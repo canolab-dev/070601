@@ -1,48 +1,115 @@
 'use strict';
 
-/**
- * Furna V1
- * Common UI
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-  renderHeader();
-  renderFooter();
+
+renderHeader();
+renderFooter();
+
 });
 
-function renderHeader() {
-  const target = document.querySelector('[data-common-header]');
+function renderHeader(){
 
-  if (!target) return;
+const target=document.querySelector('[data-common-header]');
 
-  target.innerHTML = `
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-header__brand" href="./" aria-label="Furna ホーム">
-          Furna
-        </a>
+if(!target)return;
 
-        <nav class="site-header__nav" aria-label="メインナビゲーション">
-          <a href="./">Home</a>
-        </nav>
-      </div>
-    </header>
-  `;
+target.innerHTML=`
+
+<header class="site-header">
+
+<div class="container site-header__inner">
+
+<a href="./" class="site-header__brand">
+
+<img
+class="site-header__logo"
+src="../images/logo.png"
+alt="Furna">
+
+<span>Furna</span>
+
+</a>
+
+<nav class="site-header__nav">
+
+<a href="./about.html">
+About
+</a>
+
+<a href="./support.html">
+Support
+</a>
+
+<a
+class="site-header__download"
+href="#">
+
+公開予定
+
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+`;
+
 }
 
-function renderFooter() {
-  const target = document.querySelector('[data-common-footer]');
+function renderFooter(){
 
-  if (!target) return;
+const target=document.querySelector('[data-common-footer]');
 
-  target.innerHTML = `
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <p class="site-footer__brand">Furna</p>
-        <p class="site-footer__copyright">
-          &copy; ${new Date().getFullYear()} Furna
-        </p>
-      </div>
-    </footer>
-  `;
+if(!target)return;
+
+target.innerHTML=`
+
+<footer class="site-footer">
+
+<div class="container site-footer__inner">
+
+<div>
+
+<strong>Furna</strong>
+
+</div>
+
+<nav class="site-header__nav">
+
+<a href="./about.html">
+About
+</a>
+
+<a href="./support.html">
+Support
+</a>
+
+<a href="#">
+Privacy
+</a>
+
+<a href="#">
+Terms
+</a>
+
+<a href="#">
+Contact
+</a>
+
+</nav>
+
+<div>
+
+© 2026 Furna
+
+</div>
+
+</div>
+
+</footer>
+
+`;
+
 }
