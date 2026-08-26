@@ -1,1 +1,16 @@
 /* Furna V1 — Components */
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header__brand {
+  font-weight: 600;
+}
+
+.site-header__nav {
+  display: flex;
+  gap: 24px;
+}
