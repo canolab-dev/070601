@@ -3,15 +3,19 @@
    Components
 ========================================================== */
 
-/* ---------- Header ---------- */
+/* ==========================================================
+   Header
+========================================================== */
 
 .site-header{
+
     position:sticky;
     top:0;
     z-index:1000;
 
     background:#ffffff;
     border-bottom:1px solid #ECE8E1;
+
 }
 
 .site-header__inner{
@@ -21,6 +25,7 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
+
 }
 
 .site-header__brand{
@@ -29,15 +34,18 @@
     align-items:center;
     gap:14px;
 
+    color:#2F6F4E;
+
     font-size:18px;
     font-weight:700;
-    color:#2F6F4E;
+
 }
 
 .site-header__brand img{
 
     width:40px;
     height:40px;
+
     display:block;
 
 }
@@ -47,15 +55,20 @@
     display:flex;
     align-items:center;
     gap:36px;
+
 }
 
 .site-header__nav a{
 
-    color:#1F1F1F;
+    position:relative;
+
     font-size:15px;
-    font-weight:500;
+    font-weight:600;
+
+    color:#1F1F1F;
 
     transition:.2s;
+
 }
 
 .site-header__nav a:hover{
@@ -72,19 +85,19 @@
     justify-content:center;
 
     height:42px;
-
     padding:0 20px;
 
     border-radius:12px;
 
     background:#2F6F4E;
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:14px;
     font-weight:700;
 
     transition:.2s;
+
 }
 
 .site-header__button:hover{
@@ -93,13 +106,146 @@
 
 }
 
-/* ---------- Footer ---------- */
+/* ==========================================================
+   Buttons
+========================================================== */
+
+.button{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-width:180px;
+    height:56px;
+
+    padding:0 28px;
+
+    border-radius:14px;
+
+    font-size:16px;
+    font-weight:700;
+
+    transition:.2s;
+
+    text-align:center;
+
+}
+
+.button--primary{
+
+    background:#2F6F4E;
+    color:#ffffff;
+
+}
+
+.button--primary:hover{
+
+    background:#255B40;
+
+}
+
+.button--secondary{
+
+    background:#ffffff;
+
+    color:#2F6F4E;
+
+    border:1px solid #2F6F4E;
+
+}
+
+.button--secondary:hover{
+
+    background:#F7F6F2;
+
+}
+
+/* ==========================================================
+   Hero Buttons
+========================================================== */
+
+.hero-buttons{
+
+    display:flex;
+    gap:16px;
+
+    margin-top:40px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   Cards
+========================================================== */
+
+.card{
+
+    background:#ffffff;
+
+    border:1px solid #ECE8E1;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    transition:.2s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+}
+
+.card__title{
+
+    margin:24px 0 12px;
+
+    font-size:24px;
+    font-weight:700;
+
+}
+
+.card__text{
+
+    color:#666666;
+
+    line-height:1.8;
+
+}
+
+/* ==========================================================
+   Placeholder
+========================================================== */
+
+.image-placeholder{
+
+    width:100%;
+
+    aspect-ratio:4 / 3;
+
+    border-radius:20px;
+
+    background:#F5F5F5;
+
+}
+
+/* ==========================================================
+   Footer
+========================================================== */
 
 .site-footer{
 
     margin-top:120px;
 
     background:#2F6F4E;
+
 }
 
 .site-footer__inner{
@@ -109,36 +255,87 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
+
+    gap:24px;
+
 }
 
 .site-footer__brand{
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:18px;
     font-weight:700;
+
 }
 
 .site-footer__nav{
 
     display:flex;
     gap:28px;
+
 }
 
 .site-footer__nav a{
 
-    color:#fff;
+    color:#ffffff;
+
+    opacity:.9;
 
     font-size:14px;
 
-    opacity:.9;
 }
 
 .site-footer__copyright{
 
-    color:#fff;
+    color:#ffffff;
 
-    opacity:.8;
+    opacity:.75;
 
     font-size:13px;
+
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width:960px){
+
+    .site-header__inner{
+
+        height:72px;
+
+    }
+
+    .site-header__nav{
+
+        gap:20px;
+
+    }
+
+    .site-footer__inner{
+
+        flex-direction:column;
+
+        justify-content:center;
+
+        padding:32px 0;
+
+        text-align:center;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .button{
+
+        width:100%;
+
+    }
+
 }
