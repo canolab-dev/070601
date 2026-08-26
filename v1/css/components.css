@@ -1,16 +1,205 @@
-/* Furna V1 — Components */
+/* =========================================================
+Furna V1 Components
+========================================================= */
 
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.container{
+
+width:min(1180px,92%);
+margin:0 auto;
+
 }
 
-.site-header__brand {
-  font-weight: 600;
+.site-header{
+
+position:sticky;
+top:0;
+z-index:100;
+
+background:#ffffff;
+
+border-bottom:1px solid #ececec;
+
 }
 
-.site-header__nav {
-  display: flex;
-  gap: 24px;
+.site-header__inner{
+
+height:78px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+}
+
+.site-header__brand{
+
+display:flex;
+align-items:center;
+
+gap:12px;
+
+text-decoration:none;
+
+color:#2F6F4E;
+
+font-size:34px;
+font-weight:700;
+
+}
+
+.site-header__logo{
+
+height:44px;
+
+}
+
+.site-header__nav{
+
+display:flex;
+align-items:center;
+
+gap:36px;
+
+}
+
+.site-header__nav a{
+
+text-decoration:none;
+
+color:#1f1f1f;
+
+font-weight:600;
+
+}
+
+.site-header__download{
+
+padding:12px 20px;
+
+border-radius:12px;
+
+background:#2F6F4E;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+}
+
+.site-footer{
+
+margin-top:120px;
+
+background:#2F6F4E;
+
+color:white;
+
+}
+
+.site-footer__inner{
+
+height:90px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.button{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:18px 32px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
+.button--primary{
+
+background:#2F6F4E;
+
+color:white;
+
+}
+
+.button--secondary{
+
+border:2px solid #2F6F4E;
+
+color:#2F6F4E;
+
+background:white;
+
+}
+
+.hero{
+
+padding:90px 0;
+
+}
+
+.hero__inner{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+align-items:center;
+
+gap:80px;
+
+}
+
+.hero h1{
+
+font-size:64px;
+
+line-height:1.2;
+
+font-weight:700;
+
+}
+
+.hero__lead{
+
+margin-top:28px;
+
+font-size:22px;
+
+line-height:1.9;
+
+color:#555;
+
+}
+
+.hero__buttons{
+
+margin-top:40px;
+
+display:flex;
+
+gap:20px;
+
+}
+
+.hero__visual img{
+
+width:100%;
+
+display:block;
+
 }
