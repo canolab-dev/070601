@@ -2,29 +2,37 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-renderHeader();
-renderFooter();
+    renderHeader();
+    renderFooter();
 
 });
 
 function renderHeader(){
 
-const target=document.querySelector('[data-common-header]');
+    const target=document.querySelector('[data-common-header]');
 
-if(!target)return;
+    if(!target) return;
 
-target.innerHTML=`
+    const path=location.pathname;
+
+    const isHome=
+        path.endsWith('/v1/')||
+        path.endsWith('/v1/index.html');
+
+    const home=isHome ? './' : './index.html';
+
+    target.innerHTML=`
 
 <header class="site-header">
 
-<div class="container site-header__inner">
+<div class="site-header__inner">
 
-<a href="./" class="site-header__brand">
+<a class="site-header__brand" href="${home}">
 
 <img
-class="site-header__logo"
 src="../images/logo.png"
-alt="Furna">
+alt="Furna Logo"
+>
 
 <span>Furna</span>
 
@@ -32,17 +40,16 @@ alt="Furna">
 
 <nav class="site-header__nav">
 
-<a href="./about.html">
-About
-</a>
+<a href="${home}">Home</a>
 
-<a href="./support.html">
-Support
-</a>
+<a href="./about.html">About</a>
+
+<a href="./support.html">Support</a>
 
 <a
-class="site-header__download"
-href="#">
+class="site-header__button"
+href="#"
+>
 
 公開予定
 
@@ -60,47 +67,39 @@ href="#">
 
 function renderFooter(){
 
-const target=document.querySelector('[data-common-footer]');
+    const target=document.querySelector('[data-common-footer]');
 
-if(!target)return;
+    if(!target) return;
 
-target.innerHTML=`
+    target.innerHTML=`
 
 <footer class="site-footer">
 
-<div class="container site-footer__inner">
+<div class="site-footer__inner">
 
-<div>
+<div class="site-footer__brand">
 
-<strong>Furna</strong>
+Furna
 
 </div>
 
-<nav class="site-header__nav">
+<nav class="site-footer__nav">
 
-<a href="./about.html">
-About
-</a>
+<a href="./about.html">About</a>
 
-<a href="./support.html">
-Support
-</a>
+<a href="./support.html">Support</a>
 
-<a href="#">
-Privacy
-</a>
+<a href="#">Privacy</a>
 
-<a href="#">
-Terms
-</a>
+<a href="#">Terms</a>
 
-<a href="#">
-Contact
-</a>
+<a href="#">Contact</a>
+
+<a href="#">News</a>
 
 </nav>
 
-<div>
+<div class="site-footer__copyright">
 
 © 2026 Furna
 
