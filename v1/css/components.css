@@ -1,205 +1,144 @@
-/* =========================================================
-Furna V1 Components
-========================================================= */
+/* ==========================================================
+   Furna V1
+   Components
+========================================================== */
 
-.container{
-
-width:min(1180px,92%);
-margin:0 auto;
-
-}
+/* ---------- Header ---------- */
 
 .site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
 
-position:sticky;
-top:0;
-z-index:100;
-
-background:#ffffff;
-
-border-bottom:1px solid #ececec;
-
+    background:#ffffff;
+    border-bottom:1px solid #ECE8E1;
 }
 
 .site-header__inner{
 
-height:78px;
+    height:88px;
 
-display:flex;
-align-items:center;
-justify-content:space-between;
-
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .site-header__brand{
 
-display:flex;
-align-items:center;
+    display:flex;
+    align-items:center;
+    gap:14px;
 
-gap:12px;
-
-text-decoration:none;
-
-color:#2F6F4E;
-
-font-size:34px;
-font-weight:700;
-
+    font-size:18px;
+    font-weight:700;
+    color:#2F6F4E;
 }
 
-.site-header__logo{
+.site-header__brand img{
 
-height:44px;
+    width:40px;
+    height:40px;
+    display:block;
 
 }
 
 .site-header__nav{
 
-display:flex;
-align-items:center;
-
-gap:36px;
-
+    display:flex;
+    align-items:center;
+    gap:36px;
 }
 
 .site-header__nav a{
 
-text-decoration:none;
+    color:#1F1F1F;
+    font-size:15px;
+    font-weight:500;
 
-color:#1f1f1f;
+    transition:.2s;
+}
 
-font-weight:600;
+.site-header__nav a:hover{
+
+    color:#2F6F4E;
 
 }
 
-.site-header__download{
+.site-header__button{
 
-padding:12px 20px;
+    display:inline-flex;
 
-border-radius:12px;
+    align-items:center;
+    justify-content:center;
 
-background:#2F6F4E;
+    height:42px;
 
-color:white;
+    padding:0 20px;
 
-text-decoration:none;
+    border-radius:12px;
 
-font-weight:600;
+    background:#2F6F4E;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.site-header__button:hover{
+
+    background:#255B40;
 
 }
+
+/* ---------- Footer ---------- */
 
 .site-footer{
 
-margin-top:120px;
+    margin-top:120px;
 
-background:#2F6F4E;
-
-color:white;
-
+    background:#2F6F4E;
 }
 
 .site-footer__inner{
 
-height:90px;
+    min-height:96px;
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.button{
+.site-footer__brand{
 
-display:inline-flex;
+    color:#fff;
 
-align-items:center;
-
-justify-content:center;
-
-padding:18px 32px;
-
-border-radius:14px;
-
-text-decoration:none;
-
-font-weight:700;
-
+    font-size:18px;
+    font-weight:700;
 }
 
-.button--primary{
+.site-footer__nav{
 
-background:#2F6F4E;
-
-color:white;
-
+    display:flex;
+    gap:28px;
 }
 
-.button--secondary{
+.site-footer__nav a{
 
-border:2px solid #2F6F4E;
+    color:#fff;
 
-color:#2F6F4E;
+    font-size:14px;
 
-background:white;
-
+    opacity:.9;
 }
 
-.hero{
+.site-footer__copyright{
 
-padding:90px 0;
+    color:#fff;
 
-}
+    opacity:.8;
 
-.hero__inner{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-align-items:center;
-
-gap:80px;
-
-}
-
-.hero h1{
-
-font-size:64px;
-
-line-height:1.2;
-
-font-weight:700;
-
-}
-
-.hero__lead{
-
-margin-top:28px;
-
-font-size:22px;
-
-line-height:1.9;
-
-color:#555;
-
-}
-
-.hero__buttons{
-
-margin-top:40px;
-
-display:flex;
-
-gap:20px;
-
-}
-
-.hero__visual img{
-
-width:100%;
-
-display:block;
-
+    font-size:13px;
 }
