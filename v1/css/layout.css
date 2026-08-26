@@ -1,30 +1,102 @@
-/* Furna V1 — Layout */
+/* ==========================================================
+   Furna V1
+   Layout
+========================================================== */
 
-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    sans-serif;
+:root{
+    --container-width:1200px;
 }
 
-.site-header__inner,
-.site-main,
-.site-footer__inner {
-  width: min(100% - 40px, 1200px);
-  margin-inline: auto;
+/* ---------- Body ---------- */
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
+
+    color:#1F1F1F;
+    background:#FFFFFF;
+
+    line-height:1.7;
+
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
 }
 
-.site-header {
-  padding-block: 24px;
+/* ---------- Container ---------- */
+
+.container{
+
+    width:min(calc(100% - 48px), var(--container-width));
+    margin-inline:auto;
+
 }
 
-.site-main {
-  min-height: 60vh;
-  padding-block: 80px;
+/* ---------- Main ---------- */
+
+main{
+
+    display:block;
+
 }
 
-.site-footer {
-  padding-block: 40px;
+/* ---------- Section ---------- */
+
+section{
+
+    position:relative;
+
+}
+
+/* ---------- Images ---------- */
+
+img{
+
+    display:block;
+    max-width:100%;
+    height:auto;
+
+}
+
+/* ---------- Utility ---------- */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.w-100{
+
+    width:100%;
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:960px){
+
+    .container{
+
+        width:min(calc(100% - 32px), 100%);
+
+    }
+
 }
