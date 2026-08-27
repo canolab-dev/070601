@@ -188,11 +188,6 @@
 
 
 /* ==========================================================
-   Home
-========================================================== */
-
-
-/* ==========================================================
    Home Hero
 ========================================================== */
 
@@ -216,11 +211,11 @@
 
     display:grid;
 
-    grid-template-columns:1.04fr .96fr;
+    grid-template-columns:1fr 1fr;
 
     align-items:center;
 
-    gap:64px;
+    gap:56px;
 
 }
 
@@ -278,8 +273,10 @@
 
     display:flex;
 
-    align-items:flex-end;
+    align-items:center;
     justify-content:flex-end;
+
+    width:100%;
 
     min-width:0;
 
@@ -287,12 +284,14 @@
 
 .home-hero__visual img{
 
+    display:block;
+
     width:100%;
-    max-width:540px;
+    max-width:none;
 
-    aspect-ratio:4 / 3;
+    height:auto;
 
-    object-fit:cover;
+    object-fit:contain;
 
     border-radius:0;
 
@@ -323,7 +322,14 @@
     align-items:center;
     justify-content:center;
 
-    font-size:11px;
+    flex-shrink:0;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+    font-size:24px;
     line-height:1;
 
     color:#FFFFFF;
@@ -503,7 +509,7 @@
 
 .home-features{
 
-    padding:20px 0 86px;
+    padding:24px 0 92px;
 
 }
 
@@ -513,9 +519,9 @@
 
     grid-template-columns:repeat(3,minmax(0,1fr));
 
-    gap:54px;
+    gap:48px;
 
-    margin-top:42px;
+    margin-top:48px;
 
 }
 
@@ -532,10 +538,14 @@
     align-items:center;
     justify-content:center;
 
-    width:108px;
-    height:108px;
+    width:180px;
+    height:135px;
 
-    margin:0 auto 18px;
+    margin:0 auto 22px;
+
+    overflow:hidden;
+
+    border-radius:12px;
 
 }
 
@@ -544,7 +554,7 @@
     width:100%;
     height:100%;
 
-    object-fit:contain;
+    object-fit:cover;
 
 }
 
@@ -578,7 +588,7 @@
 
 .home-screenshots{
 
-    padding:22px 0 90px;
+    padding:28px 0 104px;
 
 }
 
@@ -588,11 +598,11 @@
 
     grid-template-columns:repeat(4,minmax(0,1fr));
 
-    gap:40px;
+    gap:36px;
 
-    max-width:900px;
+    max-width:1040px;
 
-    margin:42px auto 0;
+    margin:48px auto 0;
 
 }
 
@@ -608,16 +618,21 @@
 
     display:flex;
 
+    align-items:flex-start;
     justify-content:center;
+
+    min-height:370px;
 
 }
 
 .home-screenshot__image img{
 
-    width:100%;
-    max-width:156px;
+    display:block;
 
-    height:auto;
+    width:auto;
+    max-width:190px;
+
+    height:370px;
 
     object-fit:contain;
 
@@ -625,7 +640,7 @@
 
 .home-screenshot figcaption{
 
-    margin-top:14px;
+    margin-top:16px;
 
     font-size:13px;
     font-weight:600;
@@ -770,13 +785,33 @@
 
     .home-feature-grid{
 
-        gap:32px;
+        gap:28px;
+
+    }
+
+    .home-feature__visual{
+
+        width:160px;
+        height:120px;
 
     }
 
     .home-screenshot-grid{
 
-        gap:28px;
+        gap:24px;
+
+    }
+
+    .home-screenshot__image{
+
+        min-height:330px;
+
+    }
+
+    .home-screenshot__image img{
+
+        max-width:170px;
+        height:330px;
 
     }
 
@@ -864,7 +899,10 @@
 
     .home-hero__visual img{
 
-        max-width:620px;
+        width:100%;
+        max-width:760px;
+
+        height:auto;
 
     }
 
@@ -888,11 +926,33 @@
 
     }
 
+    .home-feature__visual{
+
+        width:150px;
+        height:112px;
+
+    }
+
     .home-screenshot-grid{
 
         grid-template-columns:repeat(2,minmax(0,1fr));
 
-        max-width:560px;
+        max-width:620px;
+
+        gap:42px 32px;
+
+    }
+
+    .home-screenshot__image{
+
+        min-height:360px;
+
+    }
+
+    .home-screenshot__image img{
+
+        max-width:185px;
+        height:360px;
 
     }
 
@@ -996,6 +1056,14 @@
 
     }
 
+    .home-hero__visual img{
+
+        width:100%;
+
+        height:auto;
+
+    }
+
 
     /* Home headings */
 
@@ -1030,7 +1098,7 @@
 
     .home-discovery-card__visual{
 
-        height:190px;
+        height:210px;
 
     }
 
@@ -1051,7 +1119,7 @@
 
     .home-features{
 
-        padding:12px 0 68px;
+        padding:16px 0 72px;
 
     }
 
@@ -1059,13 +1127,20 @@
 
         grid-template-columns:1fr;
 
-        max-width:360px;
+        max-width:400px;
 
         margin-inline:auto;
 
-        margin-top:36px;
+        margin-top:38px;
 
-        gap:42px;
+        gap:44px;
+
+    }
+
+    .home-feature__visual{
+
+        width:220px;
+        height:165px;
 
     }
 
@@ -1074,7 +1149,7 @@
 
     .home-screenshots{
 
-        padding:12px 0 72px;
+        padding:16px 0 76px;
 
     }
 
@@ -1082,13 +1157,20 @@
 
         grid-template-columns:repeat(2,minmax(0,1fr));
 
-        gap:26px 18px;
+        gap:34px 18px;
+
+    }
+
+    .home-screenshot__image{
+
+        min-height:280px;
 
     }
 
     .home-screenshot__image img{
 
-        max-width:130px;
+        max-width:145px;
+        height:280px;
 
     }
 
