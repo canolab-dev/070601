@@ -25,13 +25,13 @@ function renderHeader(){
 
 <header class="site-header">
 
-<div class="site-header__inner">
+<div class="container site-header__inner">
 
 <a class="site-header__brand" href="${home}">
 
 <img
-src="../images/logo.png"
-alt="Furna Logo"
+src="../images/PrimaryLogo_0002.JPEG"
+alt="Furna"
 >
 
 <span>Furna</span>
@@ -75,7 +75,7 @@ function renderFooter(){
 
 <footer class="site-footer">
 
-<div class="site-footer__inner">
+<div class="container site-footer__inner">
 
 <div class="site-footer__brand">
 
