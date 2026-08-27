@@ -84,8 +84,9 @@
 .page-hero__visual{
 
     display:flex;
-    justify-content:center;
+
     align-items:center;
+    justify-content:center;
 
 }
 
@@ -712,10 +713,301 @@
 
 
 /* ==========================================================
-   About
+   About Hero
 ========================================================== */
 
-.site-main > .page-hero:not(:has(.page-hero__inner)){
+.about-hero{
+
+    padding:88px 0 104px;
+
+}
+
+.about-hero .page-hero__inner{
+
+    grid-template-columns:1fr 1fr;
+
+    gap:72px;
+
+}
+
+.about-hero .page-hero__title{
+
+    font-size:58px;
+
+}
+
+.about-hero .page-hero__description{
+
+    margin-top:32px;
+
+    color:#666666;
+
+    font-size:19px;
+    line-height:2;
+
+}
+
+.about-hero__visual{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:390px;
+
+    background:#FBF8F1;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+}
+
+.about-hero__visual img{
+
+    width:72%;
+    max-width:360px;
+
+    height:auto;
+
+    object-fit:contain;
+
+    border-radius:0;
+
+    box-shadow:none;
+
+}
+
+
+/* ==========================================================
+   About Why
+========================================================== */
+
+.about-why{
+
+    padding:104px 0 112px;
+
+}
+
+.about-why .page-section__lead{
+
+    max-width:880px;
+
+}
+
+
+/* ==========================================================
+   About Problem
+========================================================== */
+
+.about-problem{
+
+    padding:88px 0 112px;
+
+    background:#FBF8F1;
+
+}
+
+.about-problem__grid{
+
+    margin-top:48px;
+
+}
+
+.about-problem__card{
+
+    padding:28px;
+
+    background:#FFFFFF;
+
+}
+
+.about-problem__visual{
+
+    aspect-ratio:4 / 3;
+
+    border-radius:16px;
+
+}
+
+.about-problem__card .card__title{
+
+    margin-top:26px;
+
+    font-size:22px;
+
+}
+
+.about-problem__card .card__text{
+
+    font-size:15px;
+    line-height:1.85;
+
+}
+
+
+/* ==========================================================
+   About Solution
+========================================================== */
+
+.about-solution{
+
+    padding:104px 0 112px;
+
+}
+
+.about-solution__grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:32px;
+
+    margin-top:48px;
+
+}
+
+.about-solution__card{
+
+    min-height:260px;
+
+    padding:42px;
+
+}
+
+.about-solution__card .card__title{
+
+    margin:0;
+
+    font-size:25px;
+
+    color:#2F6F4E;
+
+}
+
+.about-solution__english{
+
+    margin:8px 0 24px;
+
+    font-size:13px;
+
+    color:#F29F3D;
+
+}
+
+.about-solution__card .card__text{
+
+    font-size:15px;
+    line-height:1.9;
+
+}
+
+
+/* ==========================================================
+   About Mission
+========================================================== */
+
+.about-mission{
+
+    padding:120px 0;
+
+    text-align:center;
+
+    background:#FFFFFF;
+
+}
+
+.about-mission__inner{
+
+    max-width:820px;
+
+}
+
+.about-mission h2{
+
+    margin:0;
+
+    font-size:26px;
+    font-weight:700;
+
+    color:#2F6F4E;
+
+}
+
+.about-mission__statement{
+
+    margin:34px 0 0;
+
+    font-size:44px;
+    font-weight:700;
+    line-height:1.55;
+
+    color:#1F1F1F;
+
+}
+
+
+/* ==========================================================
+   About Future
+========================================================== */
+
+.about-future{
+
+    padding:96px 0 112px;
+
+    text-align:center;
+
+    background:#FBF8F1;
+
+}
+
+.about-future__inner{
+
+    max-width:800px;
+
+}
+
+.about-future h2{
+
+    margin:0;
+
+    font-size:30px;
+    line-height:1.4;
+
+    color:#2F6F4E;
+
+}
+
+.about-future p{
+
+    margin:28px 0 0;
+
+    font-size:16px;
+    line-height:2;
+
+    color:#555555;
+
+}
+
+
+/* ==========================================================
+   About CTA
+========================================================== */
+
+.about-cta{
+
+    border-top:0;
+
+}
+
+
+/* ==========================================================
+   Support Compatibility
+========================================================== */
+
+.site-main > .page-hero:not(.about-hero):not(:has(.page-hero__inner)){
 
     width:min(calc(100% - 48px), var(--container-width));
 
@@ -731,18 +1023,13 @@
 
 }
 
-.site-main > .page-section{
+.site-main > .page-section:not(.about-why):not(.about-problem):not(.about-solution){
 
     width:min(calc(100% - 48px), var(--container-width));
 
     margin-inline:auto;
 
 }
-
-
-/* ==========================================================
-   Support
-========================================================== */
 
 .site-main > .cta-section{
 
@@ -812,6 +1099,24 @@
 
         max-width:170px;
         height:330px;
+
+    }
+
+    .about-hero .page-hero__inner{
+
+        gap:48px;
+
+    }
+
+    .about-hero .page-hero__title{
+
+        font-size:52px;
+
+    }
+
+    .about-mission__statement{
+
+        font-size:40px;
 
     }
 
@@ -965,9 +1270,58 @@
     }
 
 
-    /* About / Support existing HTML compatibility */
+    /* About */
 
-    .site-main > .page-hero:not(:has(.page-hero__inner)){
+    .about-hero{
+
+        padding:72px 0 80px;
+
+    }
+
+    .about-hero .page-hero__inner{
+
+        grid-template-columns:1fr;
+
+        gap:44px;
+
+    }
+
+    .about-hero__visual{
+
+        min-height:320px;
+
+    }
+
+    .about-hero__visual img{
+
+        max-width:320px;
+
+    }
+
+    .about-problem__grid{
+
+        grid-template-columns:1fr;
+
+        max-width:720px;
+
+    }
+
+    .about-solution__grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .about-mission__statement{
+
+        font-size:36px;
+
+    }
+
+
+    /* Support existing HTML compatibility */
+
+    .site-main > .page-hero:not(.about-hero):not(:has(.page-hero__inner)){
 
         width:min(calc(100% - 32px), 100%);
 
@@ -977,7 +1331,7 @@
 
     }
 
-    .site-main > .page-section,
+    .site-main > .page-section:not(.about-why):not(.about-problem):not(.about-solution),
     .site-main > .cta-section{
 
         width:min(calc(100% - 32px), 100%);
@@ -1202,6 +1556,115 @@
     .home-cta__buttons .button{
 
         width:100%;
+
+    }
+
+
+    /* About */
+
+    .about-hero{
+
+        padding:56px 0 64px;
+
+    }
+
+    .about-hero .page-hero__title{
+
+        font-size:40px;
+
+    }
+
+    .about-hero .page-hero__description{
+
+        margin-top:24px;
+
+        font-size:17px;
+
+    }
+
+    .about-hero__visual{
+
+        min-height:260px;
+
+        border-radius:18px;
+
+    }
+
+    .about-hero__visual img{
+
+        width:78%;
+        max-width:260px;
+
+    }
+
+    .about-why{
+
+        padding:72px 0 80px;
+
+    }
+
+    .about-problem{
+
+        padding:72px 0 80px;
+
+    }
+
+    .about-problem__card{
+
+        padding:24px;
+
+    }
+
+    .about-solution{
+
+        padding:72px 0 80px;
+
+    }
+
+    .about-solution__card{
+
+        min-height:auto;
+
+        padding:30px 26px;
+
+    }
+
+    .about-mission{
+
+        padding:88px 0;
+
+    }
+
+    .about-mission h2{
+
+        font-size:23px;
+
+    }
+
+    .about-mission__statement{
+
+        margin-top:28px;
+
+        font-size:30px;
+        line-height:1.6;
+
+    }
+
+    .about-future{
+
+        padding:72px 0 80px;
+
+    }
+
+    .about-future h2{
+
+        font-size:26px;
+
+    }
+
+    .about-future p{
+
+        font-size:15px;
 
     }
 
