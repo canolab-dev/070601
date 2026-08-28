@@ -1,114 +1,285 @@
-'use strict';
+/* ==========================================================
+   Furna V1
+   Common UI
+========================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    renderHeader();
-    renderFooter();
+    const headerTarget = document.querySelector("[data-common-header]");
+    const footerTarget = document.querySelector("[data-common-footer]");
+
+    /* ======================================================
+       Header
+    ====================================================== */
+
+    if (headerTarget) {
+
+        headerTarget.innerHTML = `
+            <header class="site-header">
+
+                <div class="container site-header__inner">
+
+                    <a
+                        class="site-header__brand"
+                        href="./index.html"
+                        aria-label="Furna Home"
+                    >
+                        <img
+                            src="../images/PrimaryLogo_0002.jpg"
+                            alt=""
+                        >
+                        <span>Furna</span>
+                    </a>
+
+
+                    <nav
+                        class="site-header__nav"
+                        aria-label="Primary navigation"
+                    >
+                        <a href="./index.html">
+                            Home
+                        </a>
+
+                        <a href="./about.html">
+                            About
+                        </a>
+
+                        <a href="./support.html">
+                            Support
+                        </a>
+
+                        <a
+                            class="site-header__button"
+                            href="#"
+                            aria-disabled="true"
+                        >
+                            公開予定
+                        </a>
+                    </nav>
+
+
+                    <button
+                        class="site-header__menu-button"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="site-mobile-nav"
+                        aria-label="メニューを開く"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="site-mobile-nav"
+                    id="site-mobile-nav"
+                    hidden
+                >
+
+                    <div class="container site-mobile-nav__inner">
+
+                        <a href="./index.html">
+                            Home
+                        </a>
+
+                        <a href="./about.html">
+                            About
+                        </a>
+
+                        <a href="./support.html">
+                            Support
+                        </a>
+
+                        <span class="site-mobile-nav__status">
+                            公開予定
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+        `;
+
+
+        const menuButton = headerTarget.querySelector(
+            ".site-header__menu-button"
+        );
+
+        const mobileNav = headerTarget.querySelector(
+            ".site-mobile-nav"
+        );
+
+
+        if (menuButton && mobileNav) {
+
+            const closeMenu = () => {
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "メニューを開く"
+                );
+
+                mobileNav.hidden = true;
+
+                document.body.classList.remove(
+                    "mobile-nav-open"
+                );
+
+            };
+
+
+            const openMenu = () => {
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "true"
+                );
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "メニューを閉じる"
+                );
+
+                mobileNav.hidden = false;
+
+                document.body.classList.add(
+                    "mobile-nav-open"
+                );
+
+            };
+
+
+            menuButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        menuButton.getAttribute(
+                            "aria-expanded"
+                        ) === "true";
+
+                    if (isOpen) {
+
+                        closeMenu();
+
+                    } else {
+
+                        openMenu();
+
+                    }
+
+                }
+            );
+
+
+            mobileNav
+                .querySelectorAll("a")
+                .forEach((link) => {
+
+                    link.addEventListener(
+                        "click",
+                        closeMenu
+                    );
+
+                });
+
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    if (window.innerWidth > 560) {
+
+                        closeMenu();
+
+                    }
+
+                }
+            );
+
+
+            document.addEventListener(
+                "keydown",
+                (event) => {
+
+                    if (event.key === "Escape") {
+
+                        closeMenu();
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* ======================================================
+       Footer
+    ====================================================== */
+
+    if (footerTarget) {
+
+        footerTarget.innerHTML = `
+            <footer class="site-footer">
+
+                <div class="container site-footer__inner">
+
+                    <div class="site-footer__brand">
+                        Furna
+                    </div>
+
+                    <nav
+                        class="site-footer__nav"
+                        aria-label="Footer navigation"
+                    >
+
+                        <a href="./about.html">
+                            About
+                        </a>
+
+                        <a href="./support.html">
+                            Support
+                        </a>
+
+                        <a href="#">
+                            Privacy
+                        </a>
+
+                        <a href="#">
+                            Terms
+                        </a>
+
+                        <a href="mailto:support@furna.jp">
+                            Contact
+                        </a>
+
+                        <a href="#">
+                            News
+                        </a>
+
+                    </nav>
+
+                    <div class="site-footer__copyright">
+                        © 2026 Furna
+                    </div>
+
+                </div>
+
+            </footer>
+        `;
+
+    }
 
 });
-
-function renderHeader(){
-
-    const target=document.querySelector('[data-common-header]');
-
-    if(!target) return;
-
-    const path=location.pathname;
-
-    const isHome=
-        path.endsWith('/v1/')||
-        path.endsWith('/v1/index.html');
-
-    const home=isHome ? './' : './index.html';
-
-    target.innerHTML=`
-
-<header class="site-header">
-
-<div class="container site-header__inner">
-
-<a class="site-header__brand" href="${home}">
-
-<img
-src="../images/PrimaryLogo_0002.JPEG"
-alt="Furna"
->
-
-<span>Furna</span>
-
-</a>
-
-<nav class="site-header__nav">
-
-<a href="${home}">Home</a>
-
-<a href="./about.html">About</a>
-
-<a href="./support.html">Support</a>
-
-<a
-class="site-header__button"
-href="#"
->
-
-公開予定
-
-</a>
-
-</nav>
-
-</div>
-
-</header>
-
-`;
-
-}
-
-function renderFooter(){
-
-    const target=document.querySelector('[data-common-footer]');
-
-    if(!target) return;
-
-    target.innerHTML=`
-
-<footer class="site-footer">
-
-<div class="container site-footer__inner">
-
-<div class="site-footer__brand">
-
-Furna
-
-</div>
-
-<nav class="site-footer__nav">
-
-<a href="./about.html">About</a>
-
-<a href="./support.html">Support</a>
-
-<a href="#">Privacy</a>
-
-<a href="#">Terms</a>
-
-<a href="#">Contact</a>
-
-<a href="#">News</a>
-
-</nav>
-
-<div class="site-footer__copyright">
-
-© 2026 Furna
-
-</div>
-
-</div>
-
-</footer>
-
-`;
-
-}
