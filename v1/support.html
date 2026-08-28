@@ -13,7 +13,7 @@ content="width=device-width, initial-scale=1">
 
 <meta
 name="description"
-content="Furnaのよくあるご質問、対応環境、お問い合わせ、最新のお知らせをご案内します。">
+content="Furnaのよくあるご質問、対応環境、お問い合わせをご案内します。">
 
 <link rel="stylesheet" href="./css/variables.css">
 <link rel="stylesheet" href="./css/reset.css">
@@ -23,9 +23,11 @@ content="Furnaのよくあるご質問、対応環境、お問い合わせ、最
 
 </head>
 
+
 <body>
 
 <div data-common-header></div>
+
 
 <main class="site-main">
 
@@ -51,6 +53,7 @@ Support
 <p class="page-hero__description">
 
 Furnaについてのご質問や
+<br>
 お問い合わせはこちらからご利用ください。
 
 </p>
@@ -86,6 +89,7 @@ alt="Furnaサポート">
 
 <div class="support-faq__list">
 
+
 <article class="card support-faq__item">
 
 <h3 class="card__title">
@@ -94,8 +98,9 @@ Furnaとは何ですか？
 
 <p class="card__text">
 
-Furnaは、記憶や特徴、用途から家具を探し、
-知り、暮らしにつなげる家具探索サービスです。
+Furnaは、名前がわからない家具を、
+覚えている特徴や用途などを手がかりに探せる
+家具探索サービスです。
 
 </p>
 
@@ -127,9 +132,16 @@ Version 1.0の基本機能は無料でご利用いただけます。
 
 Furnaに登録されていない家具や、
 現在の情報だけでは候補を十分に絞れない場合があります。
+覚えている特徴や用途を変えて、
+もう一度探索してみてください。
 
-覚えている特徴や用途を確認しながら、
-別の回答でもう一度探索してください。
+</p>
+
+<p class="card__text support-faq__feedback">
+
+また、今後のFurnaの改善・発展のため、
+診断後の結果画面に表示されるフィードバックフォームにも
+ご回答いただけると幸いです。
 
 </p>
 
@@ -145,7 +157,6 @@ Furnaに登録されていない家具や、
 <p class="card__text">
 
 Version 1.0はiOS版を公開予定です。
-
 正式な対応環境は、
 公開時のApp Store情報をご確認ください。
 
@@ -169,6 +180,7 @@ Version 1.0はiOS版を公開予定です。
 
 </article>
 
+
 </div>
 
 </div>
@@ -191,7 +203,9 @@ Version 1.0はiOS版を公開予定です。
 
 <article class="card support-information__card">
 
-<div class="support-information__icon" aria-hidden="true">
+<div
+class="support-information__icon"
+aria-hidden="true">
 ✉
 </div>
 
@@ -228,7 +242,9 @@ support@furna.jp
 
 <article class="card support-information__card">
 
-<div class="support-information__icon" aria-hidden="true">
+<div
+class="support-information__icon"
+aria-hidden="true">
 ○
 </div>
 
@@ -244,9 +260,7 @@ iOS版を公開予定です。
 </p>
 
 <p class="support-information__strong">
-
 iOS
-
 </p>
 
 <p class="support-information__note">
@@ -263,7 +277,9 @@ iOS
 
 <article class="card support-information__card">
 
-<div class="support-information__icon" aria-hidden="true">
+<div
+class="support-information__icon"
+aria-hidden="true">
 ◇
 </div>
 
@@ -278,13 +294,18 @@ Furnaに関する最新情報をご案内します。
 
 </p>
 
-<a
-class="button button--secondary support-information__button"
-href="#">
+<span
+class="
+button
+button--secondary
+support-information__button
+support-information__button--disabled
+"
+aria-disabled="true">
 
-お知らせ一覧
+公開後に掲載予定
 
-</a>
+</span>
 
 </article>
 
@@ -303,6 +324,8 @@ href="#">
 <section class="support-notice">
 
 <div class="container">
+
+<div class="support-notice__inner">
 
 <h2>
 ご注意
@@ -326,16 +349,20 @@ href="#">
 
 </div>
 
+</div>
+
 </section>
 
 
 <!-- ======================================================
-     CTA
+     Feedback CTA
 ====================================================== -->
 
 <section class="support-cta">
 
 <div class="container support-cta__inner">
+
+<div class="support-cta__content">
 
 <h2>
 ご意見・ご要望をお待ちしています
@@ -348,8 +375,10 @@ Furnaをより良いサービスにするため、
 
 </p>
 
+</div>
+
 <a
-class="button button--secondary"
+class="button button--secondary support-cta__button"
 href="mailto:support@furna.jp">
 
 お問い合わせ
@@ -363,7 +392,9 @@ href="mailto:support@furna.jp">
 
 </main>
 
+
 <div data-common-footer></div>
+
 
 <script src="./js/common.js"></script>
 
