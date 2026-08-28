@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerTarget = document.querySelector("[data-common-header]");
     const footerTarget = document.querySelector("[data-common-footer]");
 
+
     /* ======================================================
        Header
     ====================================================== */
@@ -24,11 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
                         href="./index.html"
                         aria-label="Furna Home"
                     >
-                        <img
-                            src="../images/PrimaryLogo_0002.jpg"
-                            alt=""
+
+                        <span
+                            class="site-header__brand-mark"
+                            aria-hidden="true"
                         >
-                        <span>Furna</span>
+                            <img
+                                src="../images/PrimaryLogo_0002.jpg"
+                                alt=""
+                            >
+                        </span>
+
+                        <span class="site-header__brand-name">
+                            Furna
+                        </span>
+
                     </a>
 
 
@@ -36,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         class="site-header__nav"
                         aria-label="Primary navigation"
                     >
+
                         <a href="./index.html">
                             Home
                         </a>
@@ -48,13 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
                             Support
                         </a>
 
-                        <a
-                            class="site-header__button"
-                            href="#"
-                            aria-disabled="true"
+                        <span
+                            class="site-header__button site-header__status"
+                            aria-label="App Store 公開予定"
                         >
                             公開予定
-                        </a>
+                        </span>
+
                     </nav>
 
 
@@ -240,6 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         Furna
                     </div>
 
+
                     <nav
                         class="site-footer__nav"
                         aria-label="Footer navigation"
@@ -253,23 +266,36 @@ document.addEventListener("DOMContentLoaded", () => {
                             Support
                         </a>
 
-                        <a href="#">
+                        <span
+                            class="site-footer__pending"
+                            aria-disabled="true"
+                            title="公開準備中"
+                        >
                             Privacy
-                        </a>
+                        </span>
 
-                        <a href="#">
+                        <span
+                            class="site-footer__pending"
+                            aria-disabled="true"
+                            title="公開準備中"
+                        >
                             Terms
-                        </a>
+                        </span>
 
                         <a href="mailto:support@furna.jp">
                             Contact
                         </a>
 
-                        <a href="#">
+                        <span
+                            class="site-footer__pending"
+                            aria-disabled="true"
+                            title="公開準備中"
+                        >
                             News
-                        </a>
+                        </span>
 
                     </nav>
+
 
                     <div class="site-footer__copyright">
                         © 2026 Furna
