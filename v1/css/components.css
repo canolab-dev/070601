@@ -55,15 +55,6 @@
 
 }
 
-
-/*
-   PrimaryLogo_0002.jpg は
-   「Symbol + Furna」の横長画像。
-
-   Headerでは左側のSymbol部分だけを
-   正方形領域へクロップ表示する。
-*/
-
 .site-header__brand-mark{
 
     display:flex;
@@ -662,6 +653,13 @@
 
     }
 
+    .site-header__brand-mark img{
+
+        width:34px;
+        height:34px;
+
+    }
+
     .site-header__brand-name{
 
         font-size:17px;
@@ -712,21 +710,6 @@
     .site-header__menu-button{
 
         display:flex;
-
-    }
-
-    .site-header__brand-mark{
-
-        width:36px;
-        height:36px;
-
-        flex-basis:36px;
-
-    }
-
-    .site-header__brand-name{
-
-        font-size:17px;
 
     }
 
