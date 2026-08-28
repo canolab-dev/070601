@@ -26,15 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         aria-label="Furna Home"
                     >
 
-                        <span
-                            class="site-header__brand-mark"
-                            aria-hidden="true"
-                        >
-                            <img
-                                src="../images/PrimaryLogo_0002.jpg"
-                                alt=""
-                            >
-                        </span>
+                       <span
+    class="site-header__brand-mark"
+    aria-hidden="true"
+>
+    <img
+        src="../images/PrimaryLogo_0002.JPEG"
+        alt=""
+    >
+</span>
 
                         <span class="site-header__brand-name">
                             Furna
