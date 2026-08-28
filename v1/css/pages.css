@@ -1744,3 +1744,674 @@
     }
 
 }
+
+
+/* ==========================================================
+   Production Phase3-5
+   Support Completion / Shared Hero Visual Freeze
+========================================================== */
+
+
+/* ==========================================================
+   Shared Production Hero Visual
+   About visual is the baseline.
+========================================================== */
+
+.about-hero__visual,
+.support-hero__visual,
+.home-hero__visual{
+
+    width:100%;
+
+    aspect-ratio:3 / 2;
+
+    min-width:0;
+    min-height:0;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    background:#FBF8F1;
+
+}
+
+
+/* About */
+
+.about-hero__visual{
+
+    min-height:0;
+
+}
+
+.about-hero__visual img{
+
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    max-width:none;
+
+    object-fit:cover;
+
+    border-radius:0;
+
+    box-shadow:none;
+
+}
+
+
+/* Support */
+
+.support-hero__visual{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+.support-hero__visual img{
+
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    max-width:none;
+
+    object-fit:cover;
+
+    border-radius:0;
+
+    box-shadow:none;
+
+}
+
+
+/* Home */
+
+.home-hero__visual{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+.home-hero__visual img{
+
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    max-width:none;
+
+    object-fit:cover;
+
+    border-radius:0;
+
+    box-shadow:none;
+
+}
+
+
+/* ==========================================================
+   Support Hero
+========================================================== */
+
+.support-hero{
+
+    padding:88px 0 96px;
+
+}
+
+.support-hero .page-hero__inner{
+
+    grid-template-columns:1.05fr .95fr;
+
+    gap:72px;
+
+}
+
+.support-hero .page-hero__content{
+
+    max-width:560px;
+
+}
+
+.support-hero .page-hero__title{
+
+    font-size:58px;
+
+}
+
+.support-hero .page-hero__description{
+
+    margin-top:32px;
+
+    font-size:19px;
+    line-height:2;
+
+    color:#666666;
+
+}
+
+
+/* ==========================================================
+   Support FAQ
+========================================================== */
+
+.support-faq{
+
+    padding:88px 0 72px;
+
+}
+
+.support-faq__list{
+
+    display:grid;
+
+    gap:0;
+
+    margin-top:42px;
+
+    overflow:hidden;
+
+    border:1px solid #ECE8E1;
+
+    border-radius:22px;
+
+    background:#FFFFFF;
+
+}
+
+.support-faq__item{
+
+    padding:28px 36px;
+
+    border:0;
+    border-radius:0;
+
+    box-shadow:none;
+
+    background:#FFFFFF;
+
+}
+
+.support-faq__item + .support-faq__item{
+
+    border-top:1px solid #ECE8E1;
+
+}
+
+.support-faq__item .card__title{
+
+    margin:0;
+
+    font-size:20px;
+    font-weight:700;
+    line-height:1.5;
+
+    color:#1F1F1F;
+
+}
+
+.support-faq__item .card__text{
+
+    max-width:1000px;
+
+    margin:10px 0 0;
+
+    font-size:15px;
+    line-height:1.9;
+
+    color:#666666;
+
+}
+
+.support-faq__feedback{
+
+    padding-top:2px;
+
+    color:#536557 !important;
+
+}
+
+
+/* ==========================================================
+   Support Information
+========================================================== */
+
+.support-information{
+
+    padding:32px 0 82px;
+
+}
+
+.support-information__grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,minmax(0,1fr));
+
+    gap:24px;
+
+}
+
+.support-information__card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:330px;
+
+    padding:32px;
+
+    border:1px solid #ECE8E1;
+
+    border-radius:20px;
+
+    background:#FFFFFF;
+
+    box-shadow:none;
+
+}
+
+.support-information__icon{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    width:34px;
+    height:34px;
+
+    margin-bottom:22px;
+
+    border-radius:999px;
+
+    background:#F7F6F2;
+
+    color:#2F6F4E;
+
+    font-size:15px;
+
+}
+
+.support-information__card h2{
+
+    margin:0;
+
+    font-size:21px;
+    line-height:1.4;
+    font-weight:700;
+
+    color:#1F1F1F;
+
+}
+
+.support-information__card > p{
+
+    margin:18px 0 0;
+
+    font-size:14px;
+    line-height:1.85;
+
+    color:#555555;
+
+}
+
+.support-information__link{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    color:#2F6F4E;
+
+    font-size:15px;
+    font-weight:700;
+
+    text-decoration:none;
+
+}
+
+.support-information__link:hover{
+
+    text-decoration:underline;
+
+}
+
+.support-information__strong{
+
+    color:#2F6F4E !important;
+
+    font-size:18px !important;
+    font-weight:700;
+
+}
+
+.support-information__note{
+
+    color:#777777 !important;
+
+}
+
+.support-information__button{
+
+    align-self:flex-start;
+
+    min-width:180px;
+
+    margin-top:auto;
+
+}
+
+.support-information__button--disabled{
+
+    cursor:default;
+
+    opacity:.72;
+
+}
+
+
+/* ==========================================================
+   Support Notice
+========================================================== */
+
+.support-notice{
+
+    padding:0 0 72px;
+
+}
+
+.support-notice__inner{
+
+    padding:30px 34px;
+
+    border-top:1px solid #ECE8E1;
+    border-bottom:1px solid #ECE8E1;
+
+}
+
+.support-notice h2{
+
+    margin:0;
+
+    font-size:21px;
+    line-height:1.4;
+    font-weight:700;
+
+    color:#1F1F1F;
+
+}
+
+.support-notice ul{
+
+    margin:18px 0 0;
+    padding-left:1.4em;
+
+}
+
+.support-notice li{
+
+    font-size:14px;
+    line-height:1.9;
+
+    color:#555555;
+
+}
+
+
+/* ==========================================================
+   Support Feedback CTA
+========================================================== */
+
+.support-cta{
+
+    padding:52px 0;
+
+    background:#FBF8F1;
+
+    border-top:1px solid #ECE8E1;
+
+}
+
+.support-cta__inner{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:48px;
+
+}
+
+.support-cta__content{
+
+    max-width:720px;
+
+}
+
+.support-cta h2{
+
+    margin:0;
+
+    font-size:27px;
+    line-height:1.45;
+    font-weight:700;
+
+    color:#2F6F4E;
+
+}
+
+.support-cta p{
+
+    margin:14px 0 0;
+
+    font-size:14px;
+    line-height:1.85;
+
+    color:#555555;
+
+}
+
+.support-cta__button{
+
+    min-width:180px;
+
+    flex-shrink:0;
+
+}
+
+
+/* ==========================================================
+   Support / Hero Responsive
+========================================================== */
+
+@media (max-width:960px){
+
+    .about-hero__visual,
+    .support-hero__visual,
+    .home-hero__visual{
+
+        aspect-ratio:3 / 2;
+
+        border-radius:22px;
+
+    }
+
+    .support-hero{
+
+        padding:72px 0 80px;
+
+    }
+
+    .support-hero .page-hero__inner{
+
+        grid-template-columns:1fr;
+
+        gap:44px;
+
+    }
+
+    .support-hero__visual{
+
+        max-width:760px;
+
+        margin-inline:auto;
+
+    }
+
+    .support-information__grid{
+
+        grid-template-columns:1fr;
+
+        max-width:720px;
+
+        margin-inline:auto;
+
+    }
+
+    .support-information__card{
+
+        min-height:auto;
+
+    }
+
+    .support-information__button{
+
+        margin-top:28px;
+
+    }
+
+    .support-cta__inner{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+
+@media (max-width:640px){
+
+    .about-hero__visual,
+    .support-hero__visual,
+    .home-hero__visual{
+
+        aspect-ratio:3 / 2;
+
+        border-radius:18px;
+
+    }
+
+    .support-hero{
+
+        padding:56px 0 64px;
+
+    }
+
+    .support-hero .page-hero__title{
+
+        font-size:40px;
+
+    }
+
+    .support-hero .page-hero__description{
+
+        margin-top:24px;
+
+        font-size:17px;
+
+    }
+
+    .support-faq{
+
+        padding:68px 0 56px;
+
+    }
+
+    .support-faq__list{
+
+        margin-top:34px;
+
+        border-radius:18px;
+
+    }
+
+    .support-faq__item{
+
+        padding:24px 22px;
+
+    }
+
+    .support-faq__item .card__title{
+
+        font-size:18px;
+
+    }
+
+    .support-faq__item .card__text{
+
+        font-size:14px;
+
+    }
+
+    .support-information{
+
+        padding:24px 0 60px;
+
+    }
+
+    .support-information__card{
+
+        padding:26px 24px;
+
+        border-radius:18px;
+
+    }
+
+    .support-notice{
+
+        padding-bottom:56px;
+
+    }
+
+    .support-notice__inner{
+
+        padding:26px 4px;
+
+    }
+
+    .support-cta{
+
+        padding:42px 0;
+
+    }
+
+    .support-cta h2{
+
+        font-size:24px;
+
+    }
+
+    .support-cta__button{
+
+        width:100%;
+
+    }
+
+}
