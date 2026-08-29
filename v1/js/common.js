@@ -26,19 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         aria-label="Furna Home"
                     >
 
-                       <span
-    class="site-header__brand-mark"
-    aria-hidden="true"
->
-    <img
-        src="../images/PrimaryLogo_0002.JPEG"
-        alt=""
-    >
-</span>
+                        <span
+                            class="site-header__brand-mark"
+                            aria-hidden="true"
+                        >
+                            <img
+                                src="../images/PrimaryLogo_0002.JPEG"
+                                alt=""
+                            >
+                        </span>
 
-                     <a href="./privacy.html">
-                     Privacy
-                     </a>
+                        <span class="site-header__brand-name">
+                            Furna
+                        </span>
 
                     </a>
 
@@ -266,13 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             Support
                         </a>
 
-                        <span
-                            class="site-footer__pending"
-                            aria-disabled="true"
-                            title="公開準備中"
-                        >
+                        <a href="./privacy.html">
                             Privacy
-                        </span>
+                        </a>
 
                         <span
                             class="site-footer__pending"
