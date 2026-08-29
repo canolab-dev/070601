@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     >
 </span>
 
-                        <span class="site-header__brand-name">
-                            Furna
-                        </span>
+                     <a href="./privacy.html">
+                     Privacy
+                     </a>
 
                     </a>
 
