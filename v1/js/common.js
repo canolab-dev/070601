@@ -237,67 +237,63 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* ======================================================
-       Footer
-    ====================================================== */
+/* ======================================================
+   Footer
+====================================================== */
 
-    if (footerTarget) {
+if (footerTarget) {
 
-        footerTarget.innerHTML = `
-            <footer class="site-footer">
+    footerTarget.innerHTML = `
+        <footer class="site-footer">
 
-                <div class="container site-footer__inner">
+            <div class="container site-footer__inner">
 
-                    <div class="site-footer__brand">
-                        Furna
-                    </div>
-
-
-                    <nav
-                        class="site-footer__nav"
-                        aria-label="Footer navigation"
-                    >
-
-                        <a href="./about.html">
-                            About
-                        </a>
-
-                        <a href="./support.html">
-                            Support
-                        </a>
-
-<a href="./privacy.html">
-    Privacy
-</a>
-
-<a href="./terms.html">
-    Terms
-</a>
-
-<a href="mailto:support@furna.jp">
-    Contact
-</a>
-
-<span
-    class="site-footer__pending"
-    aria-disabled="true"
-    title="公開準備中"
->
-    News
-</span>
-
-                    </nav>
-
-
-                    <div class="site-footer__copyright">
-                        © 2026 Furna
-                    </div>
-
+                <div class="site-footer__brand">
+                    Furna
                 </div>
 
-            </footer>
-        `;
+                <nav
+                    class="site-footer__nav"
+                    aria-label="Footer navigation"
+                >
 
-    }
+                    <a href="./about.html">
+                        About
+                    </a>
+
+                    <a href="./support.html">
+                        Support
+                    </a>
+
+                    <a href="./privacy.html">
+                        Privacy
+                    </a>
+
+                    <a href="./terms.html">
+                        Terms
+                    </a>
+
+                    <a href="mailto:support@furna.jp">
+                        Contact
+                    </a>
+
+                    <span
+                        class="site-footer__pending"
+                        aria-disabled="true"
+                        title="公開準備中"
+                    >
+                        News
+                    </span>
+
+                </nav>
+
+                <div class="site-footer__copyright">
+                    © 2026 Furna
+                </div>
+
+            </div>
+
+        </footer>
+    `;
 
 });
