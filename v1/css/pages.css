@@ -2807,3 +2807,93 @@
     }
 
 }
+
+/* ==========================================================
+   Privacy Typography Refinement
+   Production Phase 3-7A
+========================================================== */
+
+.privacy-page .legal-hero h1{
+    font-size:clamp(42px, 4.2vw, 58px);
+    line-height:1.2;
+}
+
+.privacy-page .legal-hero p{
+    font-size:16px;
+    line-height:1.9;
+}
+
+.privacy-page .legal-content{
+    font-size:16px;
+    line-height:1.95;
+}
+
+.privacy-page .legal-content p,
+.privacy-page .legal-content li{
+    font-size:16px;
+    line-height:1.95;
+}
+
+.privacy-page .legal-content h2{
+    font-size:24px;
+    line-height:1.45;
+}
+
+.privacy-page .legal-content ul{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+
+/* ---------- Tablet ---------- */
+
+@media (max-width:960px){
+
+    .privacy-page .legal-hero h1{
+        font-size:42px;
+    }
+
+    .privacy-page .legal-content,
+    .privacy-page .legal-content p,
+    .privacy-page .legal-content li{
+        font-size:15.5px;
+    }
+
+    .privacy-page .legal-content h2{
+        font-size:22px;
+    }
+
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:560px){
+
+    .privacy-page .legal-hero h1{
+        font-size:36px;
+        line-height:1.25;
+    }
+
+    .privacy-page .legal-hero p{
+        font-size:15px;
+        line-height:1.85;
+    }
+
+    .privacy-page .legal-content{
+        font-size:15px;
+        line-height:1.9;
+    }
+
+    .privacy-page .legal-content p,
+    .privacy-page .legal-content li{
+        font-size:15px;
+        line-height:1.9;
+    }
+
+    .privacy-page .legal-content h2{
+        font-size:21px;
+        line-height:1.45;
+    }
+
+}
