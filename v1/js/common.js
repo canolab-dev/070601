@@ -266,29 +266,25 @@ document.addEventListener("DOMContentLoaded", () => {
                             Support
                         </a>
 
-                        <a href="./privacy.html">
-                            Privacy
-                        </a>
+<a href="./privacy.html">
+    Privacy
+</a>
 
-                        <span
-                            class="site-footer__pending"
-                            aria-disabled="true"
-                            title="公開準備中"
-                        >
-                            Terms
-                        </span>
+<a href="./terms.html">
+    Terms
+</a>
 
-                        <a href="mailto:support@furna.jp">
-                            Contact
-                        </a>
+<a href="mailto:support@furna.jp">
+    Contact
+</a>
 
-                        <span
-                            class="site-footer__pending"
-                            aria-disabled="true"
-                            title="公開準備中"
-                        >
-                            News
-                        </span>
+<span
+    class="site-footer__pending"
+    aria-disabled="true"
+    title="公開準備中"
+>
+    News
+</span>
 
                     </nav>
 
