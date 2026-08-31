@@ -1,12 +1,43 @@
 /* ==========================================================
    Furna V1
    Common UI
+   Root-Safe Navigation
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const headerTarget = document.querySelector("[data-common-header]");
     const footerTarget = document.querySelector("[data-common-footer]");
+
+
+    /* ======================================================
+       Absolute Paths
+
+       Root Home:
+       https://furna.jp/
+
+       V1 Pages:
+       https://furna.jp/v1/about.html
+       https://furna.jp/v1/support.html
+       https://furna.jp/v1/privacy.html
+       https://furna.jp/v1/terms.html
+    ====================================================== */
+
+    const paths = {
+
+        home: "/",
+
+        about: "/v1/about.html",
+
+        support: "/v1/support.html",
+
+        privacy: "/v1/privacy.html",
+
+        terms: "/v1/terms.html",
+
+        logo: "/images/PrimaryLogo_0002.JPEG"
+
+    };
 
 
     /* ======================================================
@@ -22,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <a
                         class="site-header__brand"
-                        href="./index.html"
+                        href="${paths.home}"
                         aria-label="Furna Home"
                     >
 
@@ -31,13 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             aria-hidden="true"
                         >
                             <img
-                                src="../images/PrimaryLogo_0002.JPEG"
+                                src="${paths.logo}"
                                 alt=""
                             >
-                        </span>
-
-                        <span class="site-header__brand-name">
-                            Furna
                         </span>
 
                     </a>
@@ -48,15 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         aria-label="Primary navigation"
                     >
 
-                        <a href="./index.html">
+                        <a href="${paths.home}">
                             Home
                         </a>
 
-                        <a href="./about.html">
+                        <a href="${paths.about}">
                             About
                         </a>
 
-                        <a href="./support.html">
+                        <a href="${paths.support}">
                             Support
                         </a>
 
@@ -93,15 +120,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="container site-mobile-nav__inner">
 
-                        <a href="./index.html">
+                        <a href="${paths.home}">
                             Home
                         </a>
 
-                        <a href="./about.html">
+                        <a href="${paths.about}">
                             About
                         </a>
 
-                        <a href="./support.html">
+                        <a href="${paths.support}">
                             Support
                         </a>
 
@@ -258,19 +285,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         aria-label="Footer navigation"
                     >
 
-                        <a href="./about.html">
+                        <a href="${paths.about}">
                             About
                         </a>
 
-                        <a href="./support.html">
+                        <a href="${paths.support}">
                             Support
                         </a>
 
-                        <a href="./privacy.html">
+                        <a href="${paths.privacy}">
                             Privacy
                         </a>
 
-                        <a href="./terms.html">
+                        <a href="${paths.terms}">
                             Terms
                         </a>
 
