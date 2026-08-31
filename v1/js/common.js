@@ -37,6 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         logo: "/images/PrimaryLogo_0002.JPEG"
 
+       <span class="site-header__brand-name">
+    Furna
+</span>
+
     };
 
 
