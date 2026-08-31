@@ -52,22 +52,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="container site-header__inner">
 
                     <a
-                        class="site-header__brand"
-                        href="${paths.home}"
-                        aria-label="Furna Home"
-                    >
+    class="site-header__brand"
+    href="${paths.home}"
+    aria-label="Furna Home"
+>
 
-                        <span
-                            class="site-header__brand-mark"
-                            aria-hidden="true"
-                        >
-                            <img
-                                src="${paths.logo}"
-                                alt=""
-                            >
-                        </span>
+    <span class="site-header__brand-mark">
+        <img
+            src="${paths.logo}"
+            alt=""
+        >
+    </span>
 
-                    </a>
+    <span class="site-header__brand-name">
+        Furna
+    </span>
+
+</a>
 
 
                     <nav
