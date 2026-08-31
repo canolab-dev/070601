@@ -3397,29 +3397,113 @@
 }
 
 /* ==========================================================
-   Home Screenshot Final Scale Adjustment
+   Home Screenshot Final Presentation
 ========================================================== */
+
+.home-screenshots {
+    background: #ffffff;
+}
+
+.home-screenshot {
+    margin: 0;
+    text-align: center;
+}
+
+.home-screenshot__image {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 18px;
+
+    background: #f8f5ef;
+
+    border: 1px solid rgba(47, 111, 78, 0.12);
+    border-radius: 28px;
+
+    box-shadow:
+        0 18px 45px rgba(42, 50, 44, 0.06),
+        0 3px 10px rgba(42, 50, 44, 0.04);
+
+    overflow: hidden;
+}
+
+.home-screenshot__image::before {
+    content: "";
+
+    position: absolute;
+    top: 10px;
+    left: 50%;
+
+    width: 34px;
+    height: 4px;
+
+    transform: translateX(-50%);
+
+    background: rgba(47, 111, 78, 0.14);
+
+    border-radius: 999px;
+}
+
+.home-screenshot__image img {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    margin-top: 8px;
+}
+
+.home-screenshot figcaption {
+    margin-top: 18px;
+
+    font-weight: 600;
+    line-height: 1.5;
+
+    color: #2b2b2b;
+}
+
 
 @media (min-width: 900px) {
 
     .home-screenshot-grid {
         max-width: 1240px;
+
         margin-left: auto;
         margin-right: auto;
-        gap: 32px;
+
+        gap: 28px;
     }
 
     .home-screenshot__image {
         width: 100%;
-        max-width: 240px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 250px;
+
+        min-height: 430px;
+
+        padding: 22px 18px 18px;
     }
 
-    .home-screenshot__image img {
-        display: block;
+}
+
+
+@media (max-width: 899px) {
+
+    .home-screenshot__image {
         width: 100%;
-        height: auto;
+        max-width: 280px;
+
+        padding: 18px 14px 14px;
+
+        border-radius: 24px;
     }
 
 }
