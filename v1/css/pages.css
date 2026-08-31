@@ -3395,3 +3395,31 @@
     }
 
 }
+
+/* ==========================================================
+   Home Screenshot Final Scale Adjustment
+========================================================== */
+
+@media (min-width: 900px) {
+
+    .home-screenshot-grid {
+        max-width: 1240px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 32px;
+    }
+
+    .home-screenshot__image {
+        width: 100%;
+        max-width: 240px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-screenshot__image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+}
